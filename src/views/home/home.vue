@@ -1,70 +1,31 @@
 <template>
   <div>
     <el-row type="flex" justify="center">
-      <!-- <el-col :span="1">左部</el-col> -->
-      <el-col :span="18" :offset="1">
-        <div class="block">
-          <el-timeline>
-            <el-timeline-item>
-              <el-carousel :interval="4000" type="card" height="280px">
-                <el-carousel-item v-for="item in 6" :key="item">
-                  <h3 class="medium">{{ item }}</h3>
-                </el-carousel-item>
-              </el-carousel>
-            </el-timeline-item>
-            <el-timeline-item>
-             
-              <el-card shadow="hover">
-                 团队介绍
-              </el-card>
-            </el-timeline-item>
-            <el-timeline-item>
-             
-              <el-card shadow="hover">
-                 通知公告
-              </el-card>
-            </el-timeline-item>
-            <el-timeline-item>
-             
-              <el-card shadow="hover">
-                 学术海报
-              </el-card>
-            </el-timeline-item>
-            <el-timeline-item>
-             
-              <el-card shadow="hover">
-                  新闻动态
-              </el-card>
-            </el-timeline-item>
-           
-
-          </el-timeline>
-          
-          
-        </div>
+      <el-col :span="2"></el-col>
+      <!-- 主要显示界面 -->
+      <el-col :span="20">
+        <el-row>
+          <!-- 走马灯 -->
+          <el-col :span="24">
+            <el-carousel
+              :interval="2000"
+              type="card"
+              height="280px"
+              :autoplay="true"
+              indicator-position="none"
+            >
+              <el-carousel-item v-for="item in 6" :key="item">
+                <h3 class="medium">图片{{ item }}</h3>
+              </el-carousel-item>
+            </el-carousel>
+          </el-col>
+          <!-- 团队简介 -->
+          <el-col :span="24">
+            <h2>团队简介</h2>
+          </el-col>
+        </el-row>
       </el-col>
-      <el-col :span="2">
-        <el-backtop
-          target=".page-component__scroll .el-scrollbar__wrap"
-          :bottom="100"
-        >
-          <div
-            style="
-               {
-                height: 100%;
-                width: 100%;
-                background-color: #f2f5f6;
-                box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
-                text-align: center;
-                line-height: 40px;
-                color: #1989fa;
-              }
-            "
-          >
-            UP
-          </div>
-        </el-backtop></el-col
-      >
+      <el-col :span="2"></el-col>
     </el-row>
   </div>
 </template>

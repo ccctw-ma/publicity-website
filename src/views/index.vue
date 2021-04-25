@@ -13,17 +13,22 @@
               <el-menu-item index="/index/home">主页</el-menu-item>
               <el-menu-item index="/index/team">团队概况</el-menu-item>
               <el-menu-item index="/index/research">科研方向</el-menu-item>
-              <el-menu-item index="/index/home">科学研究</el-menu-item>
-              <el-menu-item index="/index/home">科研平台</el-menu-item>
+              <el-menu-item index="" disabled>科学研究</el-menu-item>
+              <el-menu-item index="" disabled>科研平台</el-menu-item>
               <el-menu-item index="/index/cooperation">交流合作</el-menu-item>
-              <el-menu-item index="/index/home">产学研用</el-menu-item>
-              <el-menu-item index="/index/home">资源共享</el-menu-item>
+              <el-menu-item index="" disabled>产学研用</el-menu-item>
+              <el-menu-item index="" disabled>资源共享</el-menu-item>
             </el-menu>
           </el-row>
         </el-col>
         <el-col :span="2">搜索 </el-col>
         <el-col :span="2">
-          <el-avatar size="medium" :src="circleUrl" style="vertical-align: middle;"> </el-avatar>
+          <el-avatar
+            size="medium"
+            :src="circleUrl"
+            style="vertical-align: middle"
+          >
+          </el-avatar>
         </el-col>
       </el-row>
     </el-header>
@@ -51,20 +56,29 @@ export default {
 </script>
 
 <style >
-.el-header,
-.el-footer {
-  /* background-color: #ffffff; */
+.el-header {
   color: #333;
   text-align: center;
   line-height: 60px;
   padding: 0;
   margin: 0;
 }
+
+.el-footer {
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  /* position: fixed;
+  bottom: 1px; */
+}
+
 .el-main {
   /* background-color: #e6e6e6; */
   color: #333;
   text-align: center;
-  /* line-height: 800px; */
-  }
-
+  min-height: 600px;
+}
 </style>

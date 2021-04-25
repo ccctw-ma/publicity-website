@@ -4,7 +4,7 @@ html,body{
     height: 100%;
     width: 100%;
     min-width: 900px;
-    
+    font-family: "微软雅黑";
 }
 
 span{
@@ -13,3 +13,4 @@ span{
 .el-table td, .el-table th.is-leaf{
     border-bottom: none;
 }
+
