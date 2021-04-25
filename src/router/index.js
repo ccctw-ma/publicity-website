@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 /*懒加载*/
 const router = new VueRouter({
-    mode: 'history',
+    mode: 'hash',
     routes: [{
             //路径为空时跳到主页
             path: '',

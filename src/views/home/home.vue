@@ -22,6 +22,7 @@
           <!-- 团队简介 -->
           <el-col :span="24">
             <h2>团队简介</h2>
+          
           </el-col>
         </el-row>
       </el-col>
