@@ -24,6 +24,11 @@
             <h2>团队简介</h2>
           
           </el-col>
+          <el-col :span="16" >
+            <p>
+              {{Introduce}}
+            </p>
+          </el-col>
         </el-row>
       </el-col>
       <el-col :span="2"></el-col>
@@ -36,11 +41,21 @@ export default {
   name: "home",
   components: {},
   data() {
-    return {};
+    return {
+       Introduce:''
+    };
   },
   computed: {},
-  methods: {},
-  mounted() {},
+  methods: {
+    getIntroduce:function(){
+      this.Introduce='test';
+      //以后有接口再继续改动
+      console.log(this.Introduce);
+    }
+  },
+  mounted() {
+    this.getIntroduce();
+  },
 };
 </script>
 
