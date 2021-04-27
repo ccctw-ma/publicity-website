@@ -9,7 +9,7 @@ module.exports = {
         hotOnly:false,
         proxy:{ //配置跨域
             '/api':{
-                // target:'https://autumnfish.cn/',
+                target:'https://autumnfish.cn/',
                 ws:true,
                 changeOrigin:true,
                 pathRewrite:{
@@ -18,9 +18,6 @@ module.exports = {
             }
         },
         before:app=>{ }
-    },
-    configureWebpack:{
-        devtool:'source-map'
     },
     publicPath:'./'
 };
