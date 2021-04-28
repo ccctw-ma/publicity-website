@@ -11,6 +11,18 @@ import '@/assets/global.css'
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
+// //全局注册
+// import mavonEditor from 'mavon-editor'
+// import 'mavon-editor/dist/css/index.css'
+// // use
+// Vue.use(mavonEditor)
+
+import tinymce from 'tinymce'
+import VueTinymce from '@packy-tang/vue-tinymce'
+Vue.prototype.$tinymce = tinymce // 将全局tinymce对象指向给Vue作用域下
+Vue.use(VueTinymce)              // 安装vue的tinymce组件
+
+
 new Vue({
   // store,
   router,

@@ -41,6 +41,12 @@ const router = new VueRouter({
                     component: () => import("@/views/cooperation/cooperation.vue")
                 },
             ]
+        },
+        {
+            //管理员界面
+            path:'/admin',
+            name: 'admin',
+            component: () => import("@/views/admin/admin.vue")
         }
 
 

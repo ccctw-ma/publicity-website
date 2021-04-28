@@ -4,30 +4,45 @@
       <el-col :span="2"></el-col>
       <!-- 主要显示界面 -->
       <el-col :span="20">
-        <el-row>
-          <!-- 走马灯 -->
+        <!-- 走马灯展示图片 -->
+        <el-row :gutter="10" type="flex" justify="center">
           <el-col :span="24">
             <el-carousel
               :interval="2000"
-              type="card"
-              height="280px"
               :autoplay="true"
+              style="height: 300px"
+              type="card"
               indicator-position="none"
             >
-              <el-carousel-item v-for="(image, index) in images" :key="index">
-                <!-- <h3 class="medium">图片{{ item }}</h3> -->
-                <img :src="image.imageUrl" style="width: 100%;
-    height: 100%;
-    object-fit:cover;"/>
+              <el-carousel-item
+                v-for="(image, index) in images"
+                :key="index"
+              >
+                <img :src="image.imageUrl" class="pictures" />
               </el-carousel-item>
             </el-carousel>
           </el-col>
-          <!-- 团队简介 -->
-          <el-col :span="24">
-            <h2>团队简介</h2>
-            <el-image src="http://www.ubiloc.cn/images/03.jpg" fit="fill"> </el-image>
-            <img src="http://www.ubiloc.cn/images/03.jpg" />
-          </el-col>
+        </el-row>
+        <!-- 分割线 -->
+        <el-row><el-divider></el-divider></el-row>
+        <!-- 团队简介 -->
+        <el-row>
+          <teamInfoOfHome/>
+
+        </el-row>
+        <!-- 分割线 -->
+        <el-row><el-divider></el-divider></el-row>
+        <!-- 主页信息展示 -->
+        <el-row>
+          <!-- <div style="margin-top: 10px;">
+            
+          </div> -->
+
+          <div v-for="(item,index) in 6" :key="index" class="mainContent">
+              <el-card shadow="hover" style="min-height:300px">
+                {{ index }}
+              </el-card>
+            </div>
         </el-row>
       </el-col>
       <el-col :span="2"></el-col>
@@ -36,9 +51,12 @@
 </template>
 
 <script>
+import  teamInfoOfHome from "@/components/home/teamInfoOfHome"
 export default {
   name: "home",
-  components: {},
+  components: {
+    teamInfoOfHome
+  },
   data() {
     return {
       data: {
@@ -78,7 +96,9 @@ export default {
             newTitle: "智能系统软件技术研究中心学术沙龙——第二期",
           },
         ],
-        images: [
+        
+      },
+      images: [
           {
             imageUrl: "http://www.ubiloc.cn/images/01.jpg",
             pageId: 0,
@@ -105,42 +125,22 @@ export default {
             location: 5,
           },
         ],
-      },
-      images: [
-        {
-          imageUrl: "http://www.ubiloc.cn/images/01.jpg",
-          pageId: 0,
-          location: 1,
-        },
-        {
-          imageUrl: "http://www.ubiloc.cn/images/02.jpg",
-          pageId: 0,
-          location: 2,
-        },
-        {
-          imageUrl: "http://www.ubiloc.cn/images/03.jpg",
-          pageId: 0,
-          location: 3,
-        },
-        {
-          imageUrl: "http://www.ubiloc.cn/images/04.jpg",
-          pageId: 0,
-          location: 4,
-        },
-        {
-          imageUrl: "http://www.ubiloc.cn/images/05.jpg",
-          pageId: 0,
-          location: 5,
-        },
-      ],
+
+      Introduce: "",
     };
   },
   computed: {},
-  methods: {},
-  mounted() {},
-  created() {
-    // console.log(this.data);
+  methods: {
+    getIntroduce: function () {
+      this.Introduce = "test";
+      //以后有接口再继续改动
+      console.log(this.Introduce);
+    },
   },
+  mounted() {
+    this.getIntroduce();
+  },
+  created() {},
 };
 </script>
 
@@ -164,5 +164,19 @@ export default {
 
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
+}
+
+.pictures {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.mainContent{
+  float: left;
+  width: 31%;
+  margin: 12px;
+  
 }
 </style>

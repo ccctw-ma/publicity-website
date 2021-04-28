@@ -3,7 +3,7 @@
     <el-header>
       <el-row type="flex">
         <el-col :span="4"> 图片</el-col>
-        <el-col :span="16">
+        <el-col :span="15">
           <el-row type="flex" justify="center">
             <el-menu
               default-active="this.$route.path"
@@ -21,14 +21,20 @@
             </el-menu>
           </el-row>
         </el-col>
-        <el-col :span="2">搜索 </el-col>
+        <el-col :span="3">
+          <el-input placeholder="请输入内容" v-model="input4">
+            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+          </el-input>
+        </el-col>
         <el-col :span="2">
-          <el-avatar
+          <!-- <el-avatar
+            @click="goToAdmin"
             size="medium"
             :src="circleUrl"
             style="vertical-align: middle"
           >
-          </el-avatar>
+          </el-avatar> -->
+          <el-link :underline="false" @click="goToAdmin">admin</el-link>
         </el-col>
       </el-row>
     </el-header>
@@ -39,7 +45,7 @@
   </el-container>
 </template>
 
-<script scoped>
+<script>
 export default {
   name: "index",
   components: {},
@@ -47,10 +53,15 @@ export default {
     return {
       circleUrl:
         "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+        input4:'placeholder'
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    goToAdmin: function () {
+      this.$router.push("/admin");
+    },
+  },
   mounted() {},
 };
 </script>
