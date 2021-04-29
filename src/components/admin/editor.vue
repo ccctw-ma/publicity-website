@@ -1,5 +1,33 @@
 <template>
   <div>
+    <el-row >
+      <el-form :inline="true"  class="demo-form-inline">
+        <el-col :span="6" >
+          <el-form-item label="标题:" >
+            <el-input v-model="title" placeholder="请输入标题"></el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="6" :offset="1">
+          <el-form-item label="作者:">
+            <el-input placeholder="请输入作者" clearable v-model="author" />
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="6" :offset="1">
+          <el-form-item label="时间:">
+            <el-date-picker v-model="date" type="date" placeholder="请选择日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="1">
+          <el-button type="danger">提交</el-button>
+        </el-col>
+        <el-col :span="1" :offset="1">
+          <el-button type="success">保存</el-button>
+        </el-col>
+      </el-form>
+    </el-row>
     <vue-tinymce v-model="content" :setting="setting" />
     <el-divider></el-divider>
     <div v-html="content"></div>
@@ -23,10 +51,14 @@ export default {
         toolbar_drawer: "sliding",
         quickbars_selection_toolbar:
           "removeformat | bold italic underline strikethrough | fontsizeselect forecolor backcolor",
-        plugins: "advlist anchor autolink autoresize autosave charmap code codesample directionality emoticons fullpage fullscreen help hr image imagetools insertdatetime link lists media nonbreaking noneditable pagebreak paste preview print save searchreplace spellchecker tabfocus table template textpattern visualblocks visualchars wordcount",
+        plugins:
+          "advlist anchor autolink autoresize autosave charmap code codesample directionality emoticons fullpage fullscreen help hr image imagetools insertdatetime link lists media nonbreaking noneditable pagebreak paste preview print save searchreplace spellchecker tabfocus table template textpattern visualblocks visualchars wordcount",
         language: "zh_CN", //本地化设置
         height: "auto",
       },
+      title: "",
+      author: "",
+      date: "",
     };
   },
 
@@ -35,14 +67,20 @@ export default {
     input: (value) => {
       console.log(value);
     },
-  
   },
   mounted() {},
-  created() {
-    
-  },
+  created() {},
 };
 </script>
 
 <style>
+.demo-form-inline{
+  font-weight:bold;
+  font-family: Arial,sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.postInfo-container-item{
+  
+}
 </style>
