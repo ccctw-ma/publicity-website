@@ -1,28 +1,23 @@
 <template>
   <el-container>
-    <el-header class="adminHeader">
-    
-      ADMIN
-    </el-header>
+    <el-header class="adminHeader"> ADMIN </el-header>
     <el-container>
       <el-aside width="auto">
         <el-menu
-          :unique-opened=true
-          default-active="1"
+          :unique-opened="true"
+          default-active="teamInfo"
           class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
-        
+          @select="handleSelect"
         >
-          <el-submenu index="1">
+          <el-submenu index="Team">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span slot="title">团队概况</span>
             </template>
-            <el-menu-item index="1-1" >团队简介</el-menu-item>
-            <el-menu-item index="1-2">负责人介绍</el-menu-item>
-            <el-menu-item index="1-3">团队成员</el-menu-item>
-            <el-menu-item index="1-4">团队文化</el-menu-item>
+            <el-menu-item index="teamInfo">团队简介</el-menu-item>
+            <el-menu-item index="teamLeader">负责人介绍</el-menu-item>
+            <el-menu-item index="teamMember">团队成员</el-menu-item>
+            <el-menu-item index="teamCulture">团队文化</el-menu-item>
           </el-submenu>
           <el-menu-item index="2">
             <i class="el-icon-setting"></i>
@@ -54,7 +49,7 @@
             </template>
             <el-menu-item index="5-1">学术交流</el-menu-item>
             <el-menu-item index="5-2">学术沙龙</el-menu-item>
-            <el-menu-item index="5-3">合作机构</el-menu-item>
+            <el-menu-item index="cooperation">合作机构</el-menu-item>
           </el-submenu>
           <el-submenu index="6">
             <template slot="title">
@@ -75,18 +70,14 @@
             <el-menu-item index="7-4">会议期刊</el-menu-item>
             <el-menu-item index="7-5">论文共享</el-menu-item>
           </el-submenu>
-
-
-
-
         </el-menu>
       </el-aside>
       <el-main>
         <!-- <el-row>
           <el-button>提交</el-button>
         </el-row> -->
-        <Editor v-if="isEdit"/>
-        <List v-else @goEdit="changeStatus"/>
+        <Editor v-if="isEdit" @refresh="refresh" />
+        <List v-else :listData="listData" @goToEdit="goToEdit" @refresh="refresh"/>
       </el-main>
     </el-container>
     <el-footer>Footer 这里放脚注</el-footer>
@@ -96,29 +87,87 @@
 <script>
 import Editor from "@/components/admin/editor.vue";
 import List from "@/components/admin/list.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "admin",
-  components: { Editor,List},
+  components: { Editor, List },
   data() {
     return {
       isCollapse: true,
-      isEdit:false
+      //表格里的数据
+      listData: [],
+      // //对应后端的一个表
+      // table:"Team",
+      // //SubMenu里选择的一栏
+      // kind: "teamInfo",
+      //表格被选中的一行
+      index: 0,
+      //被送入编辑器的内容
+      data: {},
     };
   },
 
-  computed: {},
-  methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    changeStatus(){
-      this.isEdit = !this.isEdit;
-    }
+  computed: {
+    ...mapGetters([
+      //当前操作的数据库表
+      "table",
+      //当前操作的表内子项的类别
+      "kind",
+      //是否在进行编辑
+      "isEdit",
+      //正在编辑的内容
+      "notice",
+    ]),
   },
-  mounted() {},
+  methods: {
+    // handleOpen(key, keyPath) {
+    //   console.log(key, keyPath);
+    // },
+    // handleClose(key, keyPath) {
+    //   console.log(key, keyPath);
+    // },
+    //这里会向后端请求数据，改变表格中的数据
+    handleSelect(key, keyPath) {
+      if (this.isEdit) {
+        this.$message.error("请先保存正在编辑的内容");
+        return;
+      }
+      // console.log(url);
+      //保存正在操作的表名与类别
+      this.$store.commit("changeKind", keyPath[1]);
+      this.$store.commit("changeTable", keyPath[0]);
+      console.log(this.kind,this.table);
+      let url =
+        this.table.toLowerCase() + "/" + "query" + this.table + "Notice";
+      // console.log(this.kind,query);
+      //从数据库获取数据
+      this.getListData(url, this.kind);
+    },
+    getListData(url, params) {
+      this.$axios
+        .get(url, {
+          params: {
+            kind: params,
+          },
+        })
+        .then((res) => {
+          console.log("获取到的数据", res.data);
+          this.listData = res.data;
+        });
+    },
+    goToEdit(index) {
+      this.$store.commit("saveNotice", this.listData[index]);
+      this.$store.commit("changeEditStatus", true);
+    },
+
+    refresh() {
+      let url =this.table.toLowerCase() + "/" + "query" + this.table + "Notice";
+      this.getListData(url, this.kind);
+    },
+  },
+  mounted() {
+    this.refresh();
+  },
   created() {},
 };
 </script>

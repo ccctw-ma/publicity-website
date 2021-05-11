@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import router from './router'
+import store from './store/store'
 // import store from './store'
 //导入全局样式
 import '@/assets/global.css'
@@ -23,8 +24,14 @@ Vue.prototype.$tinymce = tinymce // 将全局tinymce对象指向给Vue作用域�
 Vue.use(VueTinymce)              // 安装vue的tinymce组件
 
 
+//全局引入axios
+import axios from 'axios'
+Vue.prototype.$axios = axios
+//配置跨域与这是baseURL
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL='http://82.157.179.123:8080/'
 new Vue({
-  // store,
+  store,
   router,
   render: h => h(App),
 }).$mount('#app')

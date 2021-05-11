@@ -10,6 +10,7 @@
   "dependencies": {
     "@packy-tang/vue-tinymce": "^1.1.1",
     "@tinymce/tinymce-vue": "^3.2.8",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.1",
     "http-proxy-middleware": "^1.2.1",
