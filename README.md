@@ -21,12 +21,3 @@ $ npm install --save "@tinymce/tinymce-vue@^3"
     
    
 
-4、云数据库
-    {
-        ip: 82.157.179.123,
-        port:3306,
-        user:root,
-        password:Aa123456
-    }
-    可以去直接查看数据的情况
-
