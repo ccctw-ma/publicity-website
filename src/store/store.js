@@ -21,6 +21,8 @@ const store = new Vuex.Store({
       description: "",
       status: 0,
       content: "",
+      mediaType:"",
+      mediaUrl:""
     },
     //当前正在操作的数据表中的数据集 待
     noticeList:sessionStorage.getItem('noticeList')?JSON.parse(sessionStorage.getItem('noticeList')):[]

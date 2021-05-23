@@ -18,7 +18,7 @@
       <el-table-column prop="author" label="作者" width="150">
       </el-table-column>
       <el-table-column prop="title" label="标题"> </el-table-column>
-      <el-table-column prop="description" label="简述" width="200">
+      <el-table-column prop="description" label="简述" width="300">
       </el-table-column>
       <el-table-column label="状态" width="100">
         <template slot-scope="scope">
@@ -63,6 +63,10 @@
         @click="goToAdd"
       ></el-button>
     </el-tooltip>
+
+
+  
+
   </div>
 </template>
 

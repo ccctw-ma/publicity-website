@@ -99,31 +99,31 @@ export default {
         
       },
       images: [
-          {
-            imageUrl: "http://www.ubiloc.cn/images/01.jpg",
-            pageId: 0,
-            location: 1,
-          },
-          {
-            imageUrl: "http://www.ubiloc.cn/images/02.jpg",
-            pageId: 0,
-            location: 2,
-          },
-          {
-            imageUrl: "http://www.ubiloc.cn/images/03.jpg",
-            pageId: 0,
-            location: 3,
-          },
-          {
-            imageUrl: "http://www.ubiloc.cn/images/04.jpg",
-            pageId: 0,
-            location: 4,
-          },
-          {
-            imageUrl: "http://www.ubiloc.cn/images/05.jpg",
-            pageId: 0,
-            location: 5,
-          },
+          // {
+          //   imageUrl: "http://www.ubiloc.cn/images/01.jpg",
+          //   pageId: 0,
+          //   location: 1,
+          // },
+          // {
+          //   imageUrl: "http://www.ubiloc.cn/images/02.jpg",
+          //   pageId: 0,
+          //   location: 2,
+          // },
+          // {
+          //   imageUrl: "http://www.ubiloc.cn/images/03.jpg",
+          //   pageId: 0,
+          //   location: 3,
+          // },
+          // {
+          //   imageUrl: "http://www.ubiloc.cn/images/04.jpg",
+          //   pageId: 0,
+          //   location: 4,
+          // },
+          // {
+          //   imageUrl: "http://www.ubiloc.cn/images/05.jpg",
+          //   pageId: 0,
+          //   location: 5,
+          // },
         ],
 
       Introduce: "",

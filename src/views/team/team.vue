@@ -25,26 +25,35 @@
             :gutter="20"
             type="flex"
             justify="space-between"
-            style="margin-bottom: 20px"
+            style="margin-bottom: 80px"
           >
+            <!-- 文字部分 -->
             <el-col :span="12">
               <div v-if="item.description.length !== 0">
-                <p>{{ item.description }}</p>
+                <p style="text-align: left">{{ item.description }}</p>
 
-                <el-button @click="show3 = !show3" plain style="float:left">Click Me</el-button>
-
-                <div >
-                  <el-collapse-transition>
-                    <div v-show="show3">
-                      <div  v-html="item.content"></div>
-                    </div>
-                  </el-collapse-transition>
-                </div>
+                <button @click="showMoreInfo(item)" class="article_moreInfo">
+                  More Information
+                </button>
               </div>
               <div v-else v-html="item.content"></div>
             </el-col>
+            <!-- 多媒体 -->
             <el-col :span="12">
-              <img
+              <div v-if="item.mediaType === 'video'">
+                <video
+                  :src="item.mediaUrl"
+                  width="500px"
+                  muted
+                  autoplay
+                  loop
+                ></video>
+              </div>
+              <div v-else-if="item.mediaType === 'image'">
+                <img :src="item.mediaUrl" alt="" width="500px" />
+              </div>
+
+              <!-- <img
                 src="https://www.mit.edu/files/images/201807/MIT-Brain-Drug-Delivery-03.jpg"
                 alt=""
                 width="300px"
@@ -55,10 +64,22 @@
                 autoplay
                 loop
                 width="300px"
-              ></video>
+              ></video> -->
             </el-col>
             <!-- 资源 -->
           </el-row>
+          <!-- 更多的信息 -->
+          <transition name="el-fade-in-linear">
+            <el-row
+              :gutter="20"
+              type="flex"
+              justify="space-between"
+              style="margin-bottom: 80px"
+              v-show="item.show"
+            >
+              <div v-html="item.content" ></div>
+            </el-row>
+          </transition>
         </el-col>
       </el-row>
     </div>
@@ -85,7 +106,7 @@ export default {
       listData: [],
       content: "",
       kind: "",
-      show3: true,
+      showMore: false,
     };
   },
   computed: {},
@@ -95,6 +116,7 @@ export default {
       this.getListData(target.name);
       this.kind = target.label;
     },
+    //按照类别获取信息
     getListData(params) {
       this.$axios
         .get("team/queryTeamNotice", {
@@ -106,14 +128,30 @@ export default {
           this.listData.push(res.data[0]);
         });
     },
+    //获取使用的信息
+    getAllData() {
+      this.$axios.get("/team/queryAllTeamNotice").then((res) => {
+        this.listData = res.data;
+        console.log(this.listData);
+      });
+    },
+    //展示更多信息
+    showMoreInfo(item) {
+      if (item.show == undefined) {
+        this.$set(item, "show", true);
+      } else {
+        item.show = !item.show;
+      }
+    },
   },
   created() {
-    this.getListData("teamInfo");
-    this.getListData("teamLeader");
-    this.getListData("teamMember");
-    this.getListData("teamCulture");
-    this.listData.sort((item) => item.id);
-    console.log(this.listData);
+    // this.getListData("teamInfo");
+    // this.getListData("teamLeader");
+    // this.getListData("teamMember");
+    // this.getListData("teamCulture");
+
+    this.getAllData();
+
     // this.kind = '团队简介';
   },
 };
@@ -138,7 +176,6 @@ export default {
   font-size: 30px;
   margin-top: -1px;
   padding-bottom: 20px;
-  /* display: inline-block; */
   float: left;
   /* border-top: 3px solid rgba(31, 117, 221, 0.884); */
 }
@@ -154,6 +191,26 @@ export default {
   /* display: inline-block; */
   float: left;
 }
+
+.article_moreInfo {
+  text-align: center;
+  float: left;
+  width: 180px;
+  height: 50px;
+  margin-top: 20px;
+  border: 1px solid rgba(31, 117, 221, 0.884);
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+}
+
+.article_moreInfo:hover {
+  background: rgb(31, 117, 221);
+  color: white;
+  transition-duration: 0.5s;
+}
+
 .left_title {
   position: absolute;
   left: 10px;
@@ -164,6 +221,17 @@ export default {
   font-weight: bolder;
   font: black;
 }
+
+/* img {
+  clip-path: circle(40% at 50% 50%);
+  -webkit-clip-path: circle(40% at 50% 50%);
+  transition: all 400ms ease;
+  cursor: pointer;
+}
+img:hover {
+  clip-path: circle(75% at 50% 50%);
+  -webkit-clip-path: circle(75% at 50% 50%);
+} */
 
 .transition-box {
   margin-bottom: 10px;
