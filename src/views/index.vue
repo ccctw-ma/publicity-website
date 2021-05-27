@@ -9,7 +9,6 @@
               default-active="this.$route.path"
               mode="horizontal"
               :router="true"
-              
             >
               <el-menu-item index="/index/home">主页</el-menu-item>
               <el-menu-item index="/index/team">团队概况</el-menu-item>
@@ -32,9 +31,11 @@
         </el-col>
       </el-row>
     </el-header>
-    <el-main style="padding:0">
+    <el-main style="padding: 0">
       <div class="leftSide"></div>
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </el-main>
     <el-footer>Footer 这里放脚注</el-footer>
   </el-container>
@@ -62,7 +63,6 @@ export default {
 </script>
 
 <style >
-
 .el-header {
   color: #333;
   text-align: center;

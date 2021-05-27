@@ -52,19 +52,6 @@
               <div v-else-if="item.mediaType === 'image'">
                 <img :src="item.mediaUrl" alt="" width="500px" />
               </div>
-
-              <!-- <img
-                src="https://www.mit.edu/files/images/201807/MIT-Brain-Drug-Delivery-03.jpg"
-                alt=""
-                width="300px"
-              />
-              <video
-                src="https://www.mit.edu/files/images/201805/research-2_0.mp4"
-                muted
-                autoplay
-                loop
-                width="300px"
-              ></video> -->
             </el-col>
             <!-- 资源 -->
           </el-row>
