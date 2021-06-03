@@ -49,39 +49,27 @@
                   loop
                 ></video>
               </div>
-              <div v-else-if="item.mediaType === 'image'">
-                <img :src="item.mediaUrl" alt="" width="500px" />
+              <div
+                v-else-if="item.mediaType === 'image'"
+                style="padding: 0; overflow: hidden; display: block"
+              >
+                <img :src="item.mediaUrl" alt="" class="image_cover" />
               </div>
             </el-col>
             <!-- 资源 -->
           </el-row>
           <!-- 更多的信息 -->
           <transition name="el-fade-in-linear">
-            <el-row
-              :gutter="20"
-              type="flex"
-              justify="space-between"
-              style="margin-bottom: 80px"
+            <div
+              v-html="item.content"
+              class="moreInfo"
               v-show="item.show"
-            >
-              <div v-html="item.content" ></div>
-            </el-row>
+            ></div>
           </transition>
         </el-col>
       </el-row>
     </div>
   </div>
-  <!-- <h2 class="left_title">
-        <span>团队概况</span>
-      </h2> -->
-  <!-- <el-col :span="2" :offset="2">
-        <el-tabs tab-position="left" @tab-click="handleClick">
-          <el-tab-pane label="团队简介" name="teamInfo"> </el-tab-pane>
-          <el-tab-pane label="负责人简介" name="teamLeader"></el-tab-pane>
-          <el-tab-pane label="团队成员" name="teamMember"> </el-tab-pane>
-          <el-tab-pane label="团队文化" name="teamCulture"></el-tab-pane>
-        </el-tabs>
-      </el-col> -->
 </template>
 
 <script>
@@ -117,7 +105,7 @@ export default {
     },
     //获取使用的信息
     getAllData() {
-      this.$axios.get("/team/queryAllTeamNotice").then((res) => {
+      this.$axios.get("/Team/queryAllTeamNotice").then((res) => {
         this.listData = res.data;
         console.log(this.listData);
       });
@@ -132,14 +120,7 @@ export default {
     },
   },
   created() {
-    // this.getListData("teamInfo");
-    // this.getListData("teamLeader");
-    // this.getListData("teamMember");
-    // this.getListData("teamCulture");
-
     this.getAllData();
-
-    // this.kind = '团队简介';
   },
 };
 </script>
@@ -171,7 +152,7 @@ export default {
   font-weight: 600;
   line-height: 1.3;
   font-size: 30px;
-  border-top: 3px solid rgba(31, 117, 221, 0.884);
+  border-top: 3px solid #3682de;
   margin-top: -1px;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -185,7 +166,7 @@ export default {
   width: 180px;
   height: 50px;
   margin-top: 20px;
-  border: 1px solid rgba(31, 117, 221, 0.884);
+  border: 1px solid #3682dedb;
   background: none;
   font-size: 16px;
   cursor: pointer;
@@ -193,9 +174,32 @@ export default {
 }
 
 .article_moreInfo:hover {
-  background: rgb(31, 117, 221);
+  background: #3682de;
   color: white;
   transition-duration: 0.5s;
+}
+.image_cover {
+  display: block;
+  max-width: 500px;
+  max-height: 500px;
+  transition: all 0.25s ease-in-out;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  animation-duration: 0.3s;
+  animation-name: fadeOutIn;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0, 0, 0.5, 1);
+}
+
+.image_cover:hover {
+  -webkit-transform: scale(1.02);
+  -ms-transform: scale(1.02);
+  transform: scale(1.02);
+}
+
+.moreInfo {
+  padding: 0;
+  margin-bottom: 80px;
 }
 
 .left_title {
@@ -208,17 +212,6 @@ export default {
   font-weight: bolder;
   font: black;
 }
-
-/* img {
-  clip-path: circle(40% at 50% 50%);
-  -webkit-clip-path: circle(40% at 50% 50%);
-  transition: all 400ms ease;
-  cursor: pointer;
-}
-img:hover {
-  clip-path: circle(75% at 50% 50%);
-  -webkit-clip-path: circle(75% at 50% 50%);
-} */
 
 .transition-box {
   margin-bottom: 10px;

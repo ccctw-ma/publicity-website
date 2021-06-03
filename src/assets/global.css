@@ -4,7 +4,7 @@ html,body{
     height: 100%;
     width: 100%;
     min-width: 1200px;
-    font-family: "微软雅黑";
+    font-family: MessinaSans,sans-serif;
 }
 
 span{

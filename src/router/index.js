@@ -28,26 +28,45 @@ const router = new VueRouter({
                     name: 'team',
                     component: () => import("@/views/team/team.vue")
                 },
-                //科研
+                //科研方向
+                {
+                    path: '/index/direction',
+                    name: 'direction',
+                    component: () => import("@/views/direction/direction.vue")
+                },
+                //科学研究
                 {
                     path: '/index/research',
                     name: 'research',
                     component: () => import("@/views/research/research.vue")
                 },
-                //合作
+                //交流合作
                 {
                     path: '/index/cooperation',
                     name: 'cooperation',
                     component: () => import("@/views/cooperation/cooperation.vue")
                 },
+                //资源共享
+                {
+                    path: '/index/resource',
+                    name: 'resource',
+                    component: () => import("@/views/resource/resource.vue")
+
+                },
+                //联系我们
+                {
+                    path: '/index/contact',
+                    name: 'contact',
+                    component: () => import("@/views/contact/contact.vue")
+                }
             ]
         },
-        {
-            //管理员界面
-            path:'/admin',
-            name: 'admin',
-            component: () => import("@/views/admin/admin.vue")
-        }
+        // {
+        //     //管理员界面
+        //     path: '/admin',
+        //     name: 'admin',
+        //     component: () => import("@/views/admin/admin.vue")
+        // }
 
 
     ]

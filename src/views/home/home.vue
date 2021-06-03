@@ -1,146 +1,160 @@
 <template>
   <div>
-    <el-row type="flex" justify="center">
-      <el-col :span="2"></el-col>
+    <el-row type="flex" justify="center" class="all">
+      <!-- <el-col :span="2"></el-col> -->
       <!-- 主要显示界面 -->
       <el-col :span="20">
-        <!-- 走马灯展示图片 -->
-        <el-row :gutter="10" type="flex" justify="center">
+        <el-row>
+          <!-- 走马灯 -->
           <el-col :span="24">
             <el-carousel
               :interval="2000"
-              :autoplay="true"
-              style="height: 300px"
               type="card"
+              height="280px"
+              :autoplay="true"
               indicator-position="none"
             >
-              <el-carousel-item
-                v-for="(image, index) in images"
-                :key="index"
-              >
-                <img :src="image.imageUrl" class="pictures" />
+              <el-carousel-item v-for="item in imgArr" :key="item">
+                <img :src="item" class="image1" />
               </el-carousel-item>
             </el-carousel>
           </el-col>
-        </el-row>
-        <!-- 分割线 -->
-        <el-row><el-divider></el-divider></el-row>
-        <!-- 团队简介 -->
-        <el-row>
-          <teamInfoOfHome/>
+          <!-- 团队简介 -->
+          <el-col :span="24" class="introduce">
+            <h2 style="color: #bce672">团队简介</h2>
+            <p style="color: white">
+              {{ Introduce }}
+            </p>
+          </el-col>
+          <el-divider></el-divider>
+          <!-- 学术海报 -->
+          <el-col :span="24">
+            <h2 style="color: #fff143">学术海报</h2>
+          </el-col>
+          <el-col
+            :span="8"
+            v-for="item in 3"
+            :key="item"
+            style="padding: 20px"
+            class="poster"
+          >
+            <el-card :body-style="{ padding: '0px' }">
+              <img
+                src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+                class="image"
+              />
+              <div style="padding: 10px">
+                <span>简要信息</span>
+                <div class="bottom clearfix">
+                  <el-button type="text" class="button">点击查看详情</el-button>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+          <!-- 通知公告 -->
+          <el-col>
+            <h2 style="color: #d3b17d">通知公告</h2>
+          </el-col>
+          <el-col
+            :span="8"
+            v-for="item in 3"
+            :key="item"
+            style="padding: 20px; color: white"
+            class="note"
+          >
+            <el-container class="notes">
+              <el-aside width="100px">
+                <el-avatar shape="square" :size="80" :fit="fit">
+                  <h2 style="background-color: #f56c6c; margin: 0">
+                    通知{{ item }}
+                  </h2>
+                </el-avatar>
+                <!-- src="https://img1.baidu.com/it/u=2062164223,3783917881&fm=26&fmt=auto&gp=0.jpg" -->
+                <el-divider></el-divider>
+              </el-aside>
+              <el-divider direction="vertical"></el-divider>
+              <el-main>
+                <h4 style="color: white; text-align: left">
+                  实验室采购英文原版图书的通知
+                </h4>
+                <el-divider></el-divider>
+                <p style="color: white; text-align: left">
+                  实验室计划从美国购入一批与实验室各研究方向相关的英文原版图书，请每个小组通过amazon等网站先查阅一下相关资料。购入原则是：新或近三年来的经典之作、rapidlibrary等开放资源网站上没有电子档、对我们的研究开发确有很大帮助。登记工作由图书管理员完成。
+                </p>
+              </el-main>
+            </el-container>
+          </el-col>
+          <el-col :span="24">
+            <h2 style="color: #4b5cc4">新闻动态</h2>
+            <el-col v-for="item in 5" :key="item">
+              <div>
+                <li style="color: white; float: left">事件{{ item }}</li>
+                <div style="color: white; float: right">
+                  2021/05/0{{ item }}
+                </div>
+              </div>
 
-        </el-row>
-        <!-- 分割线 -->
-        <el-row><el-divider></el-divider></el-row>
-        <!-- 主页信息展示 -->
-        <el-row>
-          <!-- <div style="margin-top: 10px;">
-            
-          </div> -->
-
-          <div v-for="(item,index) in 6" :key="index" class="mainContent">
-              <el-card shadow="hover" style="min-height:300px">
-                {{ index }}
-              </el-card>
-            </div>
+              <el-divider></el-divider>
+            </el-col>
+          </el-col>
+          <el-col>
+            <h2 style="color: #fa8c35">友情链接</h2>
+            <el-link href="https://www.bupt.edu.cn/" type="primary"
+              ><p>北京邮电大学</p>
+            </el-link>
+            <el-link href="http://people.ucas.ac.cn/~luohaiyong" type="success"
+              ><p>罗海勇主页</p>
+            </el-link>
+            <el-link href="https://scs.bupt.edu.cn/" type="success"
+              ><p>北邮计算机</p>
+            </el-link>
+          </el-col>
         </el-row>
       </el-col>
-      <el-col :span="2"></el-col>
+      <!-- <el-col :span="2"></el-col> -->
     </el-row>
   </div>
 </template>
 
 <script>
-import  teamInfoOfHome from "@/components/home/teamInfoOfHome"
 export default {
   name: "home",
-  components: {
-    teamInfoOfHome
-  },
+  components: {},
   data() {
     return {
-      data: {
-        notices: [
-          {
-            noticeId: 1,
-            noticeTitle: "2015年 UbiLoc“挑战杯”项目组 招贤启事",
-            noticeAuthor: "Walter Yu",
-            noticeContent:
-              "  “挑战杯”全国大学生课外学术科技作品竞赛是由共青团中央、中国科协、教育部、全国学联和地方政府共同主办的全国性的大学生课外学术实践竞赛活动，创办于1989年，历经20多年的发展，竞赛规模持续扩大，作品类别日益丰富，涵盖了自然科学基础研究、科技发明创造、哲学社会科学调查研究等多个领域，每届参赛高校已达千余所，成为200多万大学生的竞技场。“挑战杯”被誉为当代大学生科技创新创业的“奥林匹克”盛会，是目前国内大学生最关注最热门的全国性竞赛，也是全国最具代表性、权威性、示范性、导向性的大学生竞赛。2015年第十四届“挑战杯”竞赛将由广东工业大学和香港科技大学联合承办。\r\n信息工程学院普适位置感知计算团队UbiLoc挑战杯项目组2013年申报的课外学术作品《基于室内定位技术的应急响应情景感知导航系统》，在第十三届全国“挑战杯”竞赛中荣获二等奖。百尺竿头，更进一步。为了备战2015年“挑战杯”竞赛，团队特成立挑战杯项目组。目前项目组因力量有限，现面向信息工程学院本科生招纳7名优秀同学进入“挑战杯”项目组，从事相关研究与开发工作。相关情况如下：",
-            noticeTime: "2020-04-24",
-          },
-          {
-            noticeId: 2,
-            noticeTitle: "关于组织团队同学参加第一届空间信息智能服务研讨会通知",
-            noticeAuthor: "Walter Yu ",
-            noticeContent:
-              "为了进一步推进空间信息智能服务的研究，促进研究人员的学术交流，武汉大学测绘遥感信息工程国家重点实验室定于2013年12月6-8日（6日报到）在武汉弘毅大酒店召开“第一届空间信息智能服务研讨会”。届时，主办方将邀请国内空间信息智能服务领域的著名专家和学者参会，共同探讨空间信息智能服务理论与方法问题，增进同行间的相互了解。本次大会包含主题报告、分会场专题交流等内容。",
-            noticeTime: "2020-12-03",
-          },
-        ],
-        news: [
-          {
-            newId: 1,
-            newContent:
-              "为增进研究中心教师之间、师生之间的交流，活跃学术氛围，拓展研究生的学术视野，地理与信息工程学院智能系统软件技术研究中心近期举办了以座谈交流为主要形式的学术沙龙系列活动。 \r\n\r\n      2020年元月4日在中国地质大学（武汉）未来城校区科教楼八405会议室举办了第一期学术沙龙活动。本次沙龙邀请了本中心博士研究生余芳文和武汉大学计算机学院硕士研究生熊燚铭为大家做了两场精彩的学术报告。",
-            newAuthor: "ubiloc",
-            newTime: "2020-03-31",
-            newTitle: "智能系统软件技术研究中心学术沙龙——第一期",
-          },
-          {
-            newId: 2,
-            newContent:
-              " 为增进研究中心教师之间、师生之间的交流，活跃学术氛围，拓展研究生的学术视野，地理与信息工程学院智能系统软件技术研究中心近期举办了以座谈交流为主要形式的学术沙龙系列活动。 \r\n\r\n      2020年元月11日在中国地质大学（武汉）未来城校区科教楼八405会议室举办了第二期学术沙龙活动。本次沙龙分为上午场和下午场，上午场邀请了华中科技大学计算机学院博士后阳俊博士和中国地质大学（武汉）地理与信息工程学院陈攀老师为大家做了两场精彩的学术报告。",
-            newAuthor: "ubiloc",
-            newTime: "2020-03-30",
-            newTitle: "智能系统软件技术研究中心学术沙龙——第二期",
-          },
-        ],
-        
-      },
-      images: [
-          // {
-          //   imageUrl: "http://www.ubiloc.cn/images/01.jpg",
-          //   pageId: 0,
-          //   location: 1,
-          // },
-          // {
-          //   imageUrl: "http://www.ubiloc.cn/images/02.jpg",
-          //   pageId: 0,
-          //   location: 2,
-          // },
-          // {
-          //   imageUrl: "http://www.ubiloc.cn/images/03.jpg",
-          //   pageId: 0,
-          //   location: 3,
-          // },
-          // {
-          //   imageUrl: "http://www.ubiloc.cn/images/04.jpg",
-          //   pageId: 0,
-          //   location: 4,
-          // },
-          // {
-          //   imageUrl: "http://www.ubiloc.cn/images/05.jpg",
-          //   pageId: 0,
-          //   location: 5,
-          // },
-        ],
-
       Introduce: "",
+      imgArr: [
+        "https://desk-fd.zol-img.com.cn/t_s960x600c5/g6/M00/09/0D/ChMkKmCHzvuIdkmLAA_0zxaWKyEAAN5nAF6ZZYAD_Tn043.jpg",
+        "https://desk-fd.zol-img.com.cn/t_s720x360c5/g6/M00/0A/04/ChMkKWCIufeIQ8OTAARG8hd8RqwAAN7VwKQUIkABEcK515.jpg",
+        "https://desk-fd.zol-img.com.cn/t_s720x360c5/g6/M00/0B/00/ChMkKmBamS-IdsvVABQVFnzWDOwAAL-UACX_LYAFBUu002.jpg",
+        "https://desk-fd.zol-img.com.cn/t_s720x360c5/g6/M00/02/0E/ChMkKV_qldOIfXWYABMgkwLAFasAAHd_gH7hoQAEyCr686.jpg",
+        "https://desk-fd.zol-img.com.cn/t_s960x600c5/g2/M00/0D/0C/ChMlWl7WGpOIP-5kAAOR7AhEDyYAAPsKwEWpmYAA5IE726.jpg",
+      ],
+      screenWidth: 0,
     };
   },
   computed: {},
   methods: {
     getIntroduce: function () {
-      this.Introduce = "test";
+      this.Introduce =
+        "“普适位置感知计算团队”(UbiLoc)创建于2009年12月，隶属于中国地质大学（武汉）地理与信息工程学院暨国家地理信息系统工程技术研究中心，致力于室内导航定位、室内制图与建模及其与普适计算、物联网、物理信息融合系统（CPS）、移动社交网络的交叉研究，团队依托学院在地图制图学与地理信息系统（GIS）、软件工程等学科领域的优势，坚持走多学科交叉和产学研相结合的发展道路。团队现有教师3名，其中教授1名，讲师2名，在读优秀博士、硕士研究生20多名，是一个特色鲜明、年轻具有活力的科研团队。";
       //以后有接口再继续改动
-      console.log(this.Introduce);
+    },
+    setSize: function () {
+      // 通过浏览器宽度(图片宽度)计算高度
+      this.bannerHeight = (400 / 1920) * this.screenWidth;
     },
   },
   mounted() {
     this.getIntroduce();
+    this.screenWidth = window.innerWidth;
+    this.setSize();
+    // 窗口大小发生改变时,调用一次
+    window.onresize = () => {
+      this.screenWidth = window.innerWidth;
+      this.setSize();
+    };
   },
-  created() {},
 };
 </script>
 
@@ -165,18 +179,29 @@ export default {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
-
-.pictures {
+.image {
+  width: 100%;
+  display: block;
+}
+.image1 {
+  width: 100%;
+  height: inherit;
+}
+.all {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 5px;
+  background-image: url(https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3370609392,2032957939&fm=26&gp=0.jpg);
+  background-size: 100% 400px;
 }
-
-.mainContent{
-  float: left;
-  width: 31%;
-  margin: 12px;
-  
+.notes {
+  height: 300px;
+}
+.el-divider--vertical {
+  display: inline-block;
+  width: 2px;
+  height: 100%;
+  margin: 0 8px;
+  vertical-align: middle;
+  position: relative;
 }
 </style>

@@ -1,88 +1,67 @@
 <template>
   <div>
-    
+    <!-- 面包屑 -->
+    <el-row>
+      <el-col :span="18" :offset="3">
+        <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
+          <el-breadcrumb-item>首页</el-breadcrumb-item>
+          <el-breadcrumb-item>交流合作</el-breadcrumb-item>
+        </el-breadcrumb>
+      </el-col>
+    </el-row>
+    <!-- 模块化开发 传入模块的参数分别为 item:显示信息 index:这是第几个模块 theme:使用哪个主题-->
+    <notice  v-for="(item, index) in listData" :key="index" :item="item" :index="index" :theme="1"></notice>
+
+   
   </div>
 </template>
 
 <script>
+import notice from "@/components/notice.vue";
 export default {
   name: "cooperation",
-  components: {},
+  components: {
+    notice,
+  },
   data() {
     return {
-      imageList: [],
-      imageUrls: [],
+      listData: [],
     };
   },
   computed: {},
   methods: {
-    submitUpload() {
-      this.$refs.upload.submit();
-    },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-      console.log(file);
-    },
-    change(e) {
-      let files = e.target.files;
-      console.log(files);
-      // 上传部分
-      let url = "http://82.157.179.123:8080/file/fileUpload"; //你的后台上传地址
-      let data = new FormData();
-      data.append("file", files[0]);
-      console.log(data);
-      this.$axios({
-        url,
-        method: "post",
-        data,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        //原生获取上传进度的事件
-        onUploadProgress: function (progressEvent) {
-          let complete =
-            (((progressEvent.loaded / progressEvent.total) * 100) | 0) + "%";
-          console.log("上传 " + complete);
-        },
-      })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-
-    getAllImages() {
-      this.$axios.get("file/queryAllFiles").then((res) => {
-        console.log(res.data);
-        let baseUrl = "http://82.157.179.123:8080/file/getImage?fileName=";
-        this.imageList = res.data;
-      });
-    },
-    getImages(imageName) {
+    //按照类别获取信息
+    getListData(params) {
       this.$axios
-        .get("file/getImage", {
+        .get("Cooperation/queryCooperationNotice", {
           params: {
-            fileName: imageName,
+            kind: params,
           },
         })
         .then((res) => {
-          console.log(res);
-          this.image = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
+          this.listData.push(res.data[0]);
         });
     },
+    //获取使用的信息
+    getAllData() {
+      this.$axios.get("/Cooperation/queryAllCooperationNotice").then((res) => {
+        this.listData = res.data;
+        console.log(this.listData);
+      });
+    },
+    
   },
   created() {
-    this.getAllImages();
+    this.getAllData();
   },
 };
 </script>
 
-<style>
+<style scoped>
+.breadcrumb {
+  font-weight: bolder;
+  font-size: 15px;
+  margin-top: 80px;
+  margin-bottom: 50px;
+}
 </style>
