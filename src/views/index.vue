@@ -2,11 +2,17 @@
   <el-container>
     <el-header>
       <el-row type="flex">
-        <el-col :span="4">
+        <el-col :span="4" style="min-width: 115px">
           <div class="logo_content">
-            <img src="../assets/bupt.jpg" alt="" class="logo" />
+            <div class="logo">
+              <img
+                src="../assets/bupt.jpg"
+                alt=""
+                style="width: 60px; height: 60px"
+              />
+            </div>
+            <div class="logo_title">北京邮电大学</div>
             <!-- <p class="logo_title">Beijing University of Posts and Telecommunications</p> -->
-            <p class="logo_title">北京邮电大学</p>
           </div>
         </el-col>
         <el-col :span="16">
@@ -158,7 +164,7 @@ export default {
     screenWidth: {
       immediate: true,
       handler: function (val) {
-        if (val < 992) {
+        if (val < 1050) {
           this.isBigWindow = false;
         } else {
           this.isBigWindow = true;
@@ -173,34 +179,35 @@ export default {
 .el-header {
   color: #333;
   text-align: center;
-  line-height: 60px;
   padding: 0;
   margin: 0;
 }
 
 .logo_content {
-  display: inline-block;
-  margin: 1px auto;
-  vertical-align:middle;
+  margin: 5px 0 0 5px;
+  @media (min-width: 992px) {
+    position: absolute;
+    left: 50px;
+  }
 }
 .logo {
-  max-height: 60px;
-  margin: 1px auto;
   display: inline-block;
-  // @media (min-width: 992px) {
-  //   position: absolute;
-  //   left: 54px;
-  // }
 }
 
 .logo_title {
   display: inline-block;
-  width: 40px;
+  width: 110px;
   height: 60px;
   line-height: normal;
   font-family: cursive;
   font-weight: bolder;
-  margin: 0px 5px;
+  margin-left: 5px;
+  margin-top: -10px;
+  vertical-align: middle;
+  @media (max-width: 1200px) {
+    width: 40px;
+    vertical-align: text-bottom;
+  }
 }
 
 .el-menu.el-menu--horizontal {
@@ -219,15 +226,17 @@ export default {
 .el-menu--horizontal > .el-menu-item {
   font-family: MessinaSans, sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 600;
+  margin-top: 5px;
   color: #041811;
 }
 
-.el-menu-demo {
+
+.el-submenu{
+  margin-top: 5px;
   font-weight: 600;
-  cursor: pointer;
-  font-size: 16px;
 }
+
 
 .el-footer {
   color: #333;
@@ -252,25 +261,6 @@ export default {
 transition-duration	transition效果需要指定多少秒或毫秒才能完成
 transition-timing-function	指定transition效果的转速曲线
 transition-delay	定义transition效果开始的时候 */
-.transitionRouter-enter-active,
-.transitionRouter-leave-active {
-  transition: transform 1s ease-in-out;
-}
-
-.transitionRouter-enter {
-  transform: translateX(100%);
-}
-.transitionRouter-enter-to {
-  transform: translateX(0);
-}
-
-.transitionRouter-leave {
-  transform: translateX(0);
-}
-.transitionRouter-leave-to {
-  transform: translateX(-100%);
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease-in-out;
