@@ -8,6 +8,7 @@ import store from './store/store'
 // import store from './store'
 //导入全局样式
 import '@/assets/global.css'
+import 'element-ui/lib/theme-chalk/display.css';
 //挂载element-ui
 Vue.use(ElementUI);
 Vue.config.productionTip = false

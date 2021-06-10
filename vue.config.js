@@ -19,7 +19,17 @@ module.exports = {
         },
         before: app => {}
     },
+
     configureWebpack: {
         devtool: 'source-map'
+    },
+
+  
+
+    pluginOptions: {
+      'style-resources-loader': {
+        preProcessor: 'less',
+        patterns: []
+      }
     }
 };

@@ -1,228 +1,122 @@
 <template>
   <div>
+    <!-- 侧边栏标题 -->
+    <div class="leftTitle hidden-sm-and-down">
+      <h1>{{table}}</h1>
+    </div>
     <!-- 面包屑 -->
     <el-row>
-      <el-col :span="18" :offset="3">
-        <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
+      <el-col :sm="{ span: 18, offset: 3 }" :xs="{ span: 22, offset: 1 }">
+        <el-breadcrumb
+          separator-class="el-icon-arrow-right"
+          :class="{
+            breadcrumb: isBigWindow === true,
+            breadcrumb_min: isBigWindow === false,
+          }"
+        >
           <el-breadcrumb-item>首页</el-breadcrumb-item>
-          <el-breadcrumb-item>团队概况</el-breadcrumb-item>
+          <el-breadcrumb-item>{{submenu}}</el-breadcrumb-item>
         </el-breadcrumb>
       </el-col>
     </el-row>
-
-    <!--文章 -->
-    <div class="article" v-for="(item, index) in listData" :key="item.id">
-      <el-row>
-        <el-col :span="18" :offset="3">
-          <!-- 标题 -->
-          <el-row>
-            <h2 :class="[index == 0 ? 'article_first_title' : 'article_title']">
-              {{ item.title }}
-            </h2>
-          </el-row>
-          <!-- 正文 -->
-          <el-row
-            :gutter="20"
-            type="flex"
-            justify="space-between"
-            style="margin-bottom: 80px"
-          >
-            <!-- 文字部分 -->
-            <el-col :span="12">
-              <div v-if="item.description.length !== 0">
-                <p style="text-align: left">{{ item.description }}</p>
-
-                <button @click="showMoreInfo(item)" class="article_moreInfo">
-                  More Information
-                </button>
-              </div>
-              <div v-else v-html="item.content"></div>
-            </el-col>
-            <!-- 多媒体 -->
-            <el-col :span="12">
-              <div v-if="item.mediaType === 'video'">
-                <video
-                  :src="item.mediaUrl"
-                  width="500px"
-                  muted
-                  autoplay
-                  loop
-                ></video>
-              </div>
-              <div
-                v-else-if="item.mediaType === 'image'"
-                style="padding: 0; overflow: hidden; display: block"
-              >
-                <img :src="item.mediaUrl" alt="" class="image_cover" />
-              </div>
-            </el-col>
-            <!-- 资源 -->
-          </el-row>
-          <!-- 更多的信息 -->
-          <transition name="el-fade-in-linear">
-            <div
-              v-html="item.content"
-              class="moreInfo"
-              v-show="item.show"
-            ></div>
-          </transition>
-        </el-col>
-      </el-row>
-    </div>
+    <!-- 模块化开发 传入模块的参数分别为 item:显示信息 index:这是第几个模块 theme:使用哪个主题-->
+    <notice
+      v-for="(item, index) in listData"
+      :key="index"
+      :item="item"
+      :index="index"
+      :theme="1"
+    ></notice>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import notice from "@/components/notice.vue";
 export default {
-  name: "team",
-  components: {},
+  name: "direction",
+  components: {
+    notice,
+  },
   data() {
     return {
       listData: [],
-      content: "",
-      kind: "",
-      showMore: false,
+      screenWidth: document.body.clientWidth,
+      isBigWindow: true,
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters([
+      //当前进入子菜单
+      "table",
+      "submenu"
+    ]),
+  },
   methods: {
-    handleClick(target) {
-      // console.log(e.name);
-      this.getListData(target.name);
-      this.kind = target.label;
-    },
-    //按照类别获取信息
-    getListData(params) {
-      this.$axios
-        .get("team/queryTeamNotice", {
-          params: {
-            kind: params,
-          },
-        })
-        .then((res) => {
-          this.listData.push(res.data[0]);
-        });
-    },
     //获取使用的信息
     getAllData() {
-      this.$axios.get("/Team/queryAllTeamNotice").then((res) => {
+      let url = this.table+"/queryAll"+this.table+"Notice";
+      console.log(url);
+      this.$axios.get(url).then((res) => {
         this.listData = res.data;
-        console.log(this.listData);
+        // console.log(this.listData);
       });
     },
-    //展示更多信息
-    showMoreInfo(item) {
-      if (item.show == undefined) {
-        this.$set(item, "show", true);
-      } else {
-        item.show = !item.show;
-      }
+  },
+  mounted() {
+    const that = this;
+    window.onresize = function () {
+      that.screenWidth = document.body.clientWidth;
+    };
+  },
+  watch: {
+    screenWidth: {
+      immediate: true,
+      handler: function (val) {
+        if (val <= 768) {
+          this.isBigWindow = false;
+        } else {
+          this.isBigWindow = true;
+        }
+        // console.log("当前窗口宽度为:" + val + "px" + this.isBigWindow);
+      },
     },
   },
   created() {
+    // console.log("进入dir"+this.table)
     this.getAllData();
   },
 };
 </script>
 
-<style scoped>
-.breadcrumb {
+<style scoped lang="less">
+
+.breadcrumb_font{
   font-weight: bolder;
   font-size: 15px;
+}
+.breadcrumb {
+  .breadcrumb_font();
   margin-top: 80px;
   margin-bottom: 50px;
 }
-
-.article {
-  border-bottom: 1px solid rgba(128, 128, 128, 0.231);
-  z-index: 100;
+.breadcrumb_min {
+  .breadcrumb_font();
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
-.article_first_title {
-  font-weight: 600;
-  line-height: 1.3;
-  font-size: 30px;
-  margin-top: -1px;
-  padding-bottom: 20px;
-  float: left;
-  /* border-top: 3px solid rgba(31, 117, 221, 0.884); */
-}
-
-.article_title {
-  font-weight: 600;
-  line-height: 1.3;
-  font-size: 30px;
-  border-top: 3px solid #3682de;
-  margin-top: -1px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  /* display: inline-block; */
-  float: left;
-}
-
-.article_moreInfo {
-  text-align: center;
-  float: left;
-  width: 180px;
-  height: 50px;
-  margin-top: 20px;
-  border: 1px solid #3682dedb;
-  background: none;
-  font-size: 16px;
-  cursor: pointer;
-  outline: none;
-}
-
-.article_moreInfo:hover {
-  background: #3682de;
-  color: white;
-  transition-duration: 0.5s;
-}
-.image_cover {
-  display: block;
-  max-width: 500px;
-  max-height: 500px;
-  transition: all 0.25s ease-in-out;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  animation-duration: 0.3s;
-  animation-name: fadeOutIn;
-  animation-fill-mode: forwards;
-  animation-timing-function: cubic-bezier(0, 0, 0.5, 1);
-}
-
-.image_cover:hover {
-  -webkit-transform: scale(1.02);
-  -ms-transform: scale(1.02);
-  transform: scale(1.02);
-}
-
-.moreInfo {
-  padding: 0;
-  margin-bottom: 80px;
-}
-
-.left_title {
+.leftTitle {
   position: absolute;
-  left: 10px;
-  top: 100px;
+  top: 140px;
+  left: 84px;
+  width: auto;
+  margin-top: 0;
+  /* background: pink; */
+  height: 84px;
+  transform-origin: 0 0;
   transform: rotate(90deg);
   white-space: nowrap;
-  font-family: MessinaSans, sans-serif;
-  font-weight: bolder;
-  font: black;
-}
-
-.transition-box {
-  margin-bottom: 10px;
-  width: 200px;
-  height: 100px;
-  border-radius: 4px;
-  background-color: #409eff;
-  text-align: center;
-  color: #fff;
-  padding: 40px 20px;
-  box-sizing: border-box;
-  margin-right: 20px;
+  font-size: 20px;
 }
 </style>

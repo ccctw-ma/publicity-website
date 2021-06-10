@@ -5,16 +5,30 @@
 </template>
 
 <script>
-
+import { mapGetters } from "vuex";
 export default {
   name: "App",
   components: {},
   data() {
     return {};
   },
-  computed: {},
-  methods: {},
-  mounted() {},
+  computed: {
+    ...mapGetters([
+      "table",
+      "submenu"
+    ])
+  },
+  methods: {
+    // 存入数据防止刷新清空
+    saveState() {
+      sessionStorage.setItem("table", JSON.stringify(this.table));
+      sessionStorage.setItem("submenu", JSON.stringify(this.submenu));
+    },
+  },
+  mounted() {
+    // 将数据保存到vuex
+    window.addEventListener("unload", this.saveState);
+  },
 };
 </script>
 
@@ -27,4 +41,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 } */
+
+
+
 </style>
