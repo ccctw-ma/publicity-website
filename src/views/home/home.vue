@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 大标题 -->
-    <el-row class="moudle" style="background-color: #fafafa; margin-top: 10px">
+    <el-row class="module" style="background-color: #fafafa; margin-top: 10px">
       <el-col :span="8" :offset="2">
         <h1 class="bigTitle">融合定位云平台</h1>
       </el-col>
@@ -31,7 +31,7 @@
     </el-row>
 
     <!-- 团队简介 -->
-    <div class="moudle" style="background-color: #2e2e2e">
+    <div class="module" style="background-color: #2e2e2e">
       <div class="leftContent hidden-sm-and-down">
         <div class="leftWord" style="color: #bce672">
           <h2>团队简介</h2>
@@ -59,7 +59,7 @@
     </div>
 
     <!-- Recent Highlights -->
-    <div class="moudle">
+    <div class="module">
       <!-- left -->
       <div class="leftContent hidden-sm-and-down">
         <div class="leftWord">
@@ -70,14 +70,14 @@
       <div class="rightContent">
         <el-row style="flex-wrap: wrap">
           <el-col :md="12" :xs="24" v-for="item in 6" :key="item">
-            <el-row>
-              <el-col :span="8">
+            <el-row style="margin: 20px">
+              <el-col :sm="8" :xs="10">
                 <img
                   src="https://news.mit.edu/sites/default/files/styles/frontpage__featured_news/public/images/202105/amethyst.jpg?itok=xn0y4C07"
-                  style="width: 200px; height: 150px"
+                  style="width: 100%"
                 />
               </el-col>
-              <el-col :span="16">
+              <el-col :sm="16" :xs="14">
                 <h4
                   style="
                     margin: 5px;
@@ -87,7 +87,10 @@
                 >
                   Inhabiting 21st-century science fiction
                 </h4>
-                <p style="text-align: left; margin: 5px">
+                <p
+                  style="text-align: left; margin: 10px"
+                  class="hidden-xs-only"
+                >
                   Students in 21L.434 discover that the world-making of science
                   fiction is not only a way to envision possible futures, but a
                   powerful way to think about the world we currently inhabit.
@@ -100,7 +103,7 @@
     </div>
 
     <!-- In the Media -->
-    <div class="moudle">
+    <div class="module">
       <!-- left -->
       <div class="leftContent hidden-sm-and-down">
         <div class="leftWord">
@@ -112,6 +115,7 @@
         <el-row style="flex-wrap: wrap">
           <el-col
             :md="8"
+            :sm="12"
             :xs="24"
             v-for="i in 3"
             :key="i"
@@ -145,7 +149,7 @@
     </div>
 
     <!-- 学术海报 -->
-    <div class="moudle">
+    <div class="module">
       <!-- left -->
       <div class="leftContent hidden-sm-and-down">
         <div class="leftWord" span="2">
@@ -182,103 +186,109 @@
     </div>
 
     <!-- 关于我们 -->
-    <el-row class="moudle" style="background-color: #fafafa">
-      <el-col class="leftWord" :span="2">
-        <h2 style="color: #fa8c35">关于我们</h2>
-      </el-col>
-      <el-col :span="20">
-        <el-col :span="18">
-          <el-col>
-            <img
-              src="https://desk-fd.zol-img.com.cn/t_s960x600c5/g6/M00/09/0D/ChMkKmCHzvuIdkmLAA_0zxaWKyEAAN5nAF6ZZYAD_Tn043.jpg"
-              style="width: 200px; height: 150px"
-            />
-          </el-col>
-          <h3 style="float: left">News by Schools/College:</h3>
-          <el-col>
-            <a href="https://www.bupt.edu.cn/"
-              ><p class="link">01.School of Architecture and Planning</p></a
-            >
-          </el-col>
-          <el-col>
-            <a href="https://www.bupt.edu.cn/"
-              ><p class="link">02.School of Engineering</p></a
-            >
-          </el-col>
-          <el-col>
-            <a href="https://www.bupt.edu.cn/"
-              ><p class="link">
-                03.School of Humanities, Arts, and Social Sciences
-              </p></a
-            >
-          </el-col>
-          <el-col>
-            <a href="https://www.bupt.edu.cn/"
-              ><p class="link">04.MIT Sloan School of Management</p></a
-            >
-          </el-col>
-          <el-col>
-            <a href="https://www.bupt.edu.cn/"
-              ><p class="link">05.School of Science</p></a
-            >
-          </el-col>
-          <el-col>
-            <a href="https://www.bupt.edu.cn/"
-              ><p class="link">06.MIT Schwarzman College of Computing</p></a
-            >
-          </el-col>
-          <br /><br />
-          <el-col>
-            <el-col :span="8">
-              <el-col>
-                <a href="https://www.bupt.edu.cn/"
-                  ><p class="link">About the MIT News Office</p></a
-                >
-              </el-col>
-              <el-col>
-                <a href="https://www.bupt.edu.cn/"
-                  ><p class="link">Press Inquiries</p></a
-                >
-              </el-col>
-            </el-col>
-            <el-col :span="8">
-              <el-col>
-                <a href="https://www.bupt.edu.cn/"
-                  ><p class="link">MIT News Press Center</p></a
-                >
-              </el-col>
-              <el-col>
-                <a href="https://www.bupt.edu.cn/"
-                  ><p class="link">Filming Guidelines</p></a
-                >
-              </el-col>
-            </el-col>
-            <el-col :span="8">
-              <el-col>
-                <a href="https://www.bupt.edu.cn/"
-                  ><p class="link">Terms of Use</p></a
-                >
-              </el-col>
-              <el-col>
-                <a href="https://www.bupt.edu.cn/"
-                  ><p class="link">RSS Feeds</p></a
-                >
-              </el-col>
-            </el-col>
-          </el-col>
-        </el-col>
-        <el-col :span="6">
+    <div class="module">
+      <div class="leftContent hidden-sm-and-down">
+        <div class="leftWord" style="background-color: #fafafa">
           <h2 style="color: #fa8c35">关于我们</h2>
-          <div v-for="index in 4" :key="index">
-            <button @click="goToBUPT" class="foot">
-              <p style="font-size: 20px">融合云平台</p>
-            </button>
-          </div>
-        </el-col>
-      </el-col>
-    </el-row>
+        </div>
+      </div>
+      <div class="rightContent">
+        <el-row style="flex-wrap: wrap">
+          <el-col :span="18">
+            <el-col>
+              <img
+                src="https://desk-fd.zol-img.com.cn/t_s960x600c5/g6/M00/09/0D/ChMkKmCHzvuIdkmLAA_0zxaWKyEAAN5nAF6ZZYAD_Tn043.jpg"
+                style="width: 200px; height: 150px"
+              />
+            </el-col>
+            <h3 style="float: left">News by Schools/College:</h3>
+            <el-col>
+              <a href="https://www.bupt.edu.cn/"
+                ><p class="link">01.School of Architecture and Planning</p></a
+              >
+            </el-col>
+            <el-col>
+              <a href="https://www.bupt.edu.cn/"
+                ><p class="link">02.School of Engineering</p></a
+              >
+            </el-col>
+            <el-col>
+              <a href="https://www.bupt.edu.cn/"
+                ><p class="link">
+                  03.School of Humanities, Arts, and Social Sciences
+                </p></a
+              >
+            </el-col>
+            <el-col>
+              <a href="https://www.bupt.edu.cn/"
+                ><p class="link">04.MIT Sloan School of Management</p></a
+              >
+            </el-col>
+            <el-col>
+              <a href="https://www.bupt.edu.cn/"
+                ><p class="link">05.School of Science</p></a
+              >
+            </el-col>
+            <el-col>
+              <a href="https://www.bupt.edu.cn/"
+                ><p class="link">06.MIT Schwarzman College of Computing</p></a
+              >
+            </el-col>
+            <br /><br />
+            <el-col>
+              <el-col :span="8">
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link">About the MIT News Office</p></a
+                  >
+                </el-col>
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link">Press Inquiries</p></a
+                  >
+                </el-col>
+              </el-col>
+              <el-col :span="8">
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link">MIT News Press Center</p></a
+                  >
+                </el-col>
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link">Filming Guidelines</p></a
+                  >
+                </el-col>
+              </el-col>
+              <el-col :span="8">
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link">Terms of Use</p></a
+                  >
+                </el-col>
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link">RSS Feeds</p></a
+                  >
+                </el-col>
+              </el-col>
+            </el-col>
+          </el-col>
+          <el-col :span="6">
+            <h2 style="color: #fa8c35">关于我们</h2>
+            <div v-for="index in 4" :key="index">
+              <button @click="goToBUPT" class="foot">
+                <p style="font-size: 20px">融合云平台</p>
+              </button>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </div>
 
-    <!-- <div class="moudle">
+
+    <!-- <div class="module
+    ">
       <div class="leftContent hidden-sm-and-down">left</div>
       <div class="rightContent">
         <el-row style="flex-wrap: wrap"> right </el-row>
@@ -331,7 +341,7 @@ export default {
 }
 
 // 每个模块主体
-.moudle {
+.module {
   width: 100%;
   border-bottom: 1px solid rgba(128, 128, 128, 0.231);
   z-index: 99;
