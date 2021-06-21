@@ -2,20 +2,14 @@
   <div>
     <!-- 侧边栏标题 -->
     <div class="leftTitle hidden-sm-and-down">
-      <h1>{{table}}</h1>
+      <h1>{{ table }}</h1>
     </div>
     <!-- 面包屑 -->
     <el-row>
       <el-col :sm="{ span: 18, offset: 3 }" :xs="{ span: 22, offset: 1 }">
-        <el-breadcrumb
-          separator-class="el-icon-arrow-right"
-          :class="{
-            breadcrumb: isBigWindow === true,
-            breadcrumb_min: isBigWindow === false,
-          }"
-        >
+        <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
           <el-breadcrumb-item>首页</el-breadcrumb-item>
-          <el-breadcrumb-item>{{submenu}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ submenu }}</el-breadcrumb-item>
         </el-breadcrumb>
       </el-col>
     </el-row>
@@ -25,7 +19,7 @@
       :key="index"
       :item="item"
       :index="index"
-      :theme="3"
+      :theme="1"
     ></notice>
   </div>
 </template>
@@ -41,66 +35,41 @@ export default {
   data() {
     return {
       listData: [],
-      screenWidth: document.body.clientWidth,
-      isBigWindow: true,
     };
   },
   computed: {
     ...mapGetters([
       //当前进入子菜单
       "table",
-      "submenu"
+      "submenu",
     ]),
   },
   methods: {
     //获取使用的信息
     getAllData() {
-      let url = this.table+"/queryAll"+this.table+"Notice";
-      // console.log(url);
+      let url = this.table + "/queryAll" + this.table + "Notice";
+      console.log(url);
       this.$axios.get(url).then((res) => {
         this.listData = res.data;
-        // console.log(this.listData);
       });
     },
   },
-  mounted() {
-    const that = this;
-    window.onresize = function () {
-      that.screenWidth = document.body.clientWidth;
-    };
-  },
-  watch: {
-    screenWidth: {
-      immediate: true,
-      handler: function (val) {
-        if (val <= 768) {
-          this.isBigWindow = false;
-        } else {
-          this.isBigWindow = true;
-        }
-        // console.log("当前窗口宽度为:" + val + "px" + this.isBigWindow);
-      },
-    },
-  },
   created() {
-    // console.log("进入dir"+this.table)
     this.getAllData();
   },
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .breadcrumb {
   font-weight: bolder;
   font-size: 15px;
   margin-top: 80px;
   margin-bottom: 50px;
-}
-.breadcrumb_min {
-  font-weight: bolder;
-  font-size: 15px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  @media (max-width: 768px) {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 }
 
 .leftTitle {
@@ -109,7 +78,6 @@ export default {
   left: 84px;
   width: auto;
   margin-top: 0;
-  /* background: pink; */
   height: 84px;
   transform-origin: 0 0;
   transform: rotate(90deg);

@@ -1,22 +1,28 @@
 <template>
   <el-container>
-    <el-header>
-      <el-row type="flex">
-        <el-col :span="4" style="min-width: 115px">
+    <!-- logo+导航栏 -->
+    <el-header height="70px">
+      <el-row type="flex" justify="start">
+        <el-col
+          :lg="{ span: 4, offset: 0 }"
+          :md="{ span: 4, offset: 0 }"
+          :sm="{ span: 6, offset: 3 }"
+          :xs="{ span: 16, offset: 1 }"
+        >
           <div class="logo_content">
             <div class="logo">
               <img
                 src="../assets/bupt.jpg"
-                alt=""
+                alt="logo"
                 style="width: 60px; height: 60px"
               />
             </div>
             <div class="logo_title">北京邮电大学</div>
-            <!-- <p class="logo_title">Beijing University of Posts and Telecommunications</p> -->
           </div>
         </el-col>
-        <el-col :span="16">
-          <el-row type="flex" justify="center" v-if="isBigWindow">
+        <el-col :lg="16" :md="16" :sm="12" :xs="6">
+          <!-- width>=992px显示 -->
+          <el-row type="flex" justify="center" class="hidden-md-and-down">
             <el-menu
               default-active="this.$route.path"
               mode="horizontal"
@@ -34,7 +40,8 @@
               <el-menu-item index="/index/contact">联系我们</el-menu-item>
             </el-menu>
           </el-row>
-          <el-row v-else>
+          <!-- width<992px显示 -->
+          <el-row type="flex" justify="end" class="hidden-lg-and-up">
             <el-menu
               default-active="1"
               class="el-menu-demo"
@@ -56,16 +63,9 @@
             </el-menu>
           </el-row>
         </el-col>
-        <!-- <el-col :span="3">
-          <el-input placeholder="请输入内容" v-model="input4">
-            <i slot="prefix" class="el-input__icon el-icon-search"></i>
-          </el-input>
-        </el-col> -->
-        <!-- <el-col :span="2" :offset="3">
-          <el-link :underline="false" @click="goToAdmin">admin</el-link>
-        </el-col> -->
       </el-row>
     </el-header>
+    <!--主要显示内容-->
     <el-main style="padding: 0">
       <div class="leftSide hidden-sm-and-down"></div>
       <transition name="fade">
@@ -74,6 +74,7 @@
         </keep-alive>
       </transition>
     </el-main>
+    <!-- 脚注部分的内容 -->
     <el-footer>Footer 这里放脚注</el-footer>
   </el-container>
 </template>
@@ -175,19 +176,30 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" >
 .el-header {
   color: #333;
   text-align: center;
   padding: 0;
   margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  // border-bottom:springgreen 1px solid;
 }
 
 .logo_content {
-  margin: 5px 0 0 5px;
+  z-index: 2;
+  min-width: 175px;
   @media (min-width: 992px) {
     position: absolute;
     left: 50px;
+    margin: 1px 0 0 5px;
+  }
+  @media (max-width: 992px) {
+    margin: 5px 0 0 0;
+    float: left;
   }
 }
 .logo {
@@ -204,22 +216,9 @@ export default {
   margin-left: 5px;
   margin-top: -10px;
   vertical-align: middle;
-  @media (max-width: 1200px) {
-    width: 40px;
-    vertical-align: text-bottom;
-  }
 }
 
 .el-menu.el-menu--horizontal {
-  border-bottom: none;
-}
-.el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
-  border-bottom: none;
-}
-.el-submenu.is-active .el-submenu__title {
-  border-bottom: none;
-}
-.el-submenu__title {
   border-bottom: none;
 }
 
@@ -227,16 +226,14 @@ export default {
   font-family: MessinaSans, sans-serif;
   font-size: 16px;
   font-weight: 600;
-  margin-top: 5px;
+  // margin-top: 5px;
   color: #041811;
 }
 
-
-.el-submenu{
+.el-submenu {
   margin-top: 5px;
   font-weight: 600;
 }
-
 
 .el-footer {
   color: #333;
@@ -254,6 +251,7 @@ export default {
   color: #333;
   text-align: center;
   min-height: 600px;
+  margin-top: 60px;
 }
 
 /* 路由过渡特效 */
@@ -276,6 +274,6 @@ transition-delay	定义transition效果开始的时候 */
   left: 0;
   width: 84px;
   border-right: 1px solid rgba(128, 128, 128, 0.231);
-  z-index: 100;
+  z-index: 1;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 大标题 -->
-    <el-row class="module" style="background-color: #fafafa; margin-top: 10px">
+    <!-- <el-row class="module" style="background-color: #fafafa; margin-top: 10px">
       <el-col :span="8" :offset="2">
         <h1 class="bigTitle">融合定位云平台</h1>
       </el-col>
@@ -28,36 +28,34 @@
           ></el-input>
         </div>
       </el-col>
-    </el-row>
+    </el-row> -->
 
-    <!-- 团队简介 -->
-    <div class="module" style="background-color: #2e2e2e">
-      <div class="leftContent hidden-sm-and-down">
-        <div class="leftWord" style="color: #bce672">
-          <h2>团队简介</h2>
-        </div>
-      </div>
-      <div class="rightContent">
-        <el-row style="flex-wrap: wrap">
-          <!-- 走马灯 -->
-          <el-col :md="12" :xs="24">
-            <el-carousel :interval="2000" :autoplay="true">
-              <el-carousel-item v-for="item in imgArr" :key="item">
-                <img :src="item" class="image" />
-              </el-carousel-item>
-            </el-carousel>
-          </el-col>
-          <!-- 团队简介 -->
-          <el-col :md="12" :xs="24">
-            <h2 style="color: #bce672">团队简介</h2>
-            <p style="color: white; padding: 10px">
-              {{ Introduce }}
+    <div class="CarouselContent">
+      <el-carousel
+        :interval="5000"
+        :autoplay="false"
+        arrow="hover"
+        @change="handleCarouselChange"
+      >
+        <el-carousel-item v-for="(item, index) in imgArr" :key="index">
+          <img :src="item" class="image" />
+          <div :class="{ image_info: index === carouselIndex }">
+            <h1 class="title">团队简介</h1>
+            <p class="description">
+              “普适位置感知计算团队”(UbiLoc)创建于2009年12月，
+              致力于室内导航定位、室内制图与建模及其与普适计算、物联网、物理信息融合系统（CPS）、
+              移动社交网络的交叉研究，团队依托学院在地图制图学与地理信息系统（GIS）、软件工程等学科领域的优势，
+              坚持走多学科交叉和产学研相结合的发展道路。
             </p>
-          </el-col>
-        </el-row>
-      </div>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
     </div>
 
+    <!-- <img
+      src="https://desk-fd.zol-img.com.cn/t_s960x600c5/g2/M00/0D/0C/ChMlWl7WGpOIP-5kAAOR7AhEDyYAAPsKwEWpmYAA5IE726.jpg"
+      style="width: 100%; z-index: 100"
+    /> -->
     <!-- Recent Highlights -->
     <div class="module">
       <!-- left -->
@@ -75,6 +73,7 @@
                 <img
                   src="https://news.mit.edu/sites/default/files/styles/frontpage__featured_news/public/images/202105/amethyst.jpg?itok=xn0y4C07"
                   style="width: 100%"
+                  class="slide-in-bottom"
                 />
               </el-col>
               <el-col :sm="16" :xs="14">
@@ -194,98 +193,98 @@
       </div>
       <div class="rightContent">
         <el-row style="flex-wrap: wrap">
-          <el-col :span="18">
+          <el-col :md="22" :offset="2" :xs="24">
             <el-col>
+              <h1 style="float: left; font-size: 30px; font-weight: bolder">
+                友情链接
+              </h1>
+            </el-col>
+            <el-col :md="3" :xs="12">
               <img
-                src="https://desk-fd.zol-img.com.cn/t_s960x600c5/g6/M00/09/0D/ChMkKmCHzvuIdkmLAA_0zxaWKyEAAN5nAF6ZZYAD_Tn043.jpg"
-                style="width: 200px; height: 150px"
+                src="../../assets/2weima.png"
+                style="width: 100%; float: left"
               />
             </el-col>
-            <h3 style="float: left">News by Schools/College:</h3>
-            <el-col>
-              <a href="https://www.bupt.edu.cn/"
-                ><p class="link">01.School of Architecture and Planning</p></a
-              >
-            </el-col>
-            <el-col>
-              <a href="https://www.bupt.edu.cn/"
-                ><p class="link">02.School of Engineering</p></a
-              >
-            </el-col>
-            <el-col>
-              <a href="https://www.bupt.edu.cn/"
-                ><p class="link">
-                  03.School of Humanities, Arts, and Social Sciences
-                </p></a
-              >
-            </el-col>
-            <el-col>
-              <a href="https://www.bupt.edu.cn/"
-                ><p class="link">04.MIT Sloan School of Management</p></a
-              >
-            </el-col>
-            <el-col>
-              <a href="https://www.bupt.edu.cn/"
-                ><p class="link">05.School of Science</p></a
-              >
-            </el-col>
-            <el-col>
-              <a href="https://www.bupt.edu.cn/"
-                ><p class="link">06.MIT Schwarzman College of Computing</p></a
-              >
-            </el-col>
-            <br /><br />
-            <el-col>
-              <el-col :span="8">
+            <el-col :md="18" :offset="1" :xs="24">
+              <el-col :md="8" :xs="24">
                 <el-col>
                   <a href="https://www.bupt.edu.cn/"
-                    ><p class="link">About the MIT News Office</p></a
+                    ><p class="link">北京邮电大学</p></a
                   >
                 </el-col>
                 <el-col>
                   <a href="https://www.bupt.edu.cn/"
-                    ><p class="link">Press Inquiries</p></a
+                    ><p class="link" style="padding-top: 10px">
+                      计算机学院（国家示范性软件学院）
+                    </p></a
+                  >
+                </el-col>
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link" style="padding-top: 10px">
+                      工业和信息化部
+                    </p></a
+                  >
+                </el-col>
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link" style="padding-top: 10px">科技部</p></a
                   >
                 </el-col>
               </el-col>
-              <el-col :span="8">
+              <el-col :md="8" :xs="24">
                 <el-col>
                   <a href="https://www.bupt.edu.cn/"
-                    ><p class="link">MIT News Press Center</p></a
+                    ><p class="link">中国卫星导航定位协会</p></a
                   >
                 </el-col>
                 <el-col>
                   <a href="https://www.bupt.edu.cn/"
-                    ><p class="link">Filming Guidelines</p></a
+                    ><p class="link" style="padding-top: 10px">
+                      普适计算（教育部）重点实验室
+                    </p></a
+                  >
+                </el-col>
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link" style="padding-top: 10px">科学网</p></a
+                  >
+                </el-col>
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link" style="padding-top: 10px">IEEE</p></a
                   >
                 </el-col>
               </el-col>
-              <el-col :span="8">
+              <el-col :md="8" :xs="24">
                 <el-col>
                   <a href="https://www.bupt.edu.cn/"
-                    ><p class="link">Terms of Use</p></a
+                    ><p class="link">中科院计算所</p></a
                   >
                 </el-col>
                 <el-col>
                   <a href="https://www.bupt.edu.cn/"
-                    ><p class="link">RSS Feeds</p></a
+                    ><p class="link" style="padding-top: 10px">Xerox PARC</p></a
+                  >
+                </el-col>
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link" style="padding-top: 10px">IDC</p></a
+                  >
+                </el-col>
+                <el-col>
+                  <a href="https://www.bupt.edu.cn/"
+                    ><p class="link" style="padding-top: 10px">Gartner</p></a
                   >
                 </el-col>
               </el-col>
             </el-col>
-          </el-col>
-          <el-col :span="6">
-            <h2 style="color: #fa8c35">关于我们</h2>
-            <div v-for="index in 4" :key="index">
-              <button @click="goToBUPT" class="foot">
-                <p style="font-size: 20px">融合云平台</p>
-              </button>
-            </div>
+            <el-col><br /></el-col>
+            <el-col><br /></el-col>
           </el-col>
         </el-row>
       </div>
     </div>
-
 
     <!-- <div class="module
     ">
@@ -303,6 +302,7 @@ export default {
   components: {},
   data() {
     return {
+      carouselIndex: 0,
       Introduce: "",
       imgArr: [
         "https://desk-fd.zol-img.com.cn/t_s960x600c5/g2/M00/0D/0C/ChMlWl7WGpOIP-5kAAOR7AhEDyYAAPsKwEWpmYAA5IE726.jpg",
@@ -316,8 +316,7 @@ export default {
   computed: {},
   methods: {
     getIntroduce: function () {
-      this.Introduce =
-        "“普适位置感知计算团队”(UbiLoc)创建于2009年12月，隶属于中国地质大学（武汉）地理与信息工程学院暨国家地理信息系统工程技术研究中心，致力于室内导航定位、室内制图与建模及其与普适计算、物联网、物理信息融合系统（CPS）、移动社交网络的交叉研究，团队依托学院在地图制图学与地理信息系统（GIS）、软件工程等学科领域的优势，坚持走多学科交叉和产学研相结合的发展道路。团队现有教师3名，其中教授1名，讲师2名，在读优秀博士、硕士研究生20多名，是一个特色鲜明、年轻具有活力的科研团队。";
+      this.Introduce = 1;
       //以后有接口再继续改动
     },
     goToBUPT: function () {
@@ -325,6 +324,10 @@ export default {
     },
     goToDetail: function () {
       window.location.href = "https://www.bupt.edu.cn/";
+    },
+    handleCarouselChange(index, preIndex) {
+      this.carouselIndex = index;
+      console.log(preIndex, index);
     },
   },
   mounted() {
@@ -334,6 +337,68 @@ export default {
 </script>
 
 <style lang="less">
+.el-carousel__container {
+  position: relative;
+  height: 50vw;
+}
+
+.CarouselContent {
+  width: 100%;
+  z-index: 200;
+  margin-top: 5px;
+  .image {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
+  .image_info {
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    .title {
+      color: #ffffff;
+      animation: 0.8s slide 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      @media (min-width: 1024px) {
+        font-size: 46px;
+      }
+      @media (min-width: 425px) and (max-width: 1024px) {
+        font-size: calc(16px + 30 * (100vw - 425px) / 600);
+      }
+      @media (max-width: 425px) {
+        font-size: 16px;
+      }
+    }
+    .description {
+      color: #ffffff;
+      // 两端对齐
+      text-align: justify;
+      animation: 0.8s slide 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      @media (min-width: 1024px) {
+        font-size: 16px;
+      }
+      @media (min-width: 425px) and (max-width: 1024px) {
+        font-size: calc(8px + 8 * (100vw - 425px) / 600);
+      }
+      @media (max-width: 425px) {
+        display: none;
+      }
+    }
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .bottomLine {
   min-height: 120px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.231);
@@ -344,7 +409,7 @@ export default {
 .module {
   width: 100%;
   border-bottom: 1px solid rgba(128, 128, 128, 0.231);
-  z-index: 99;
+  z-index: 101;
   display: flex;
 }
 
@@ -371,10 +436,8 @@ export default {
   z-index: 102;
 }
 
-.image {
-  width: 100%;
-  display: block;
-  max-height: 500px;
+.slide-in-bottom {
+  animation: slide 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .el-divider--vertical {

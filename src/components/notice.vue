@@ -27,7 +27,7 @@
           style="margin-bottom: 80px; flex-wrap: wrap"
         >
           <!-- 文字部分 -->
-          <el-col :md="12" :xs="24">
+          <el-col :md="12" :xs="24" >
             <div v-if="item.description.length !== 0">
               <p style="text-align: left">{{ item.description }}</p>
 
@@ -45,7 +45,7 @@
             <div v-else v-html="item.content"></div>
           </el-col>
           <!-- 多媒体 -->
-          <el-col :md="{ span: 11, offset: 1 }" :xs="24">
+          <el-col :md="{ span: 11, offset: 1 }" :xs="24" >
             <div v-if="item.mediaType === 'video'">
               <video
                 :src="item.mediaUrl"
@@ -77,7 +77,9 @@ export default {
   name: "notice",
   props: ["item", "index", "theme"],
   data() {
-    return {};
+    return {
+      
+    };
   },
   methods: {
     //展示更多信息
@@ -88,6 +90,7 @@ export default {
         item.show = !item.show;
       }
     },
+   
   },
 };
 </script>
@@ -96,7 +99,6 @@ export default {
   border-bottom: 1px solid rgba(128, 128, 128, 0.231);
   z-index: 100;
 }
-
 .article_title {
   font-weight: 600;
   line-height: 1.3;
@@ -133,10 +135,10 @@ export default {
   text-align: center;
   float: left;
   width: 140px;
-  @media (min-width:720px) and (max-width:1100px) {
+  @media (min-width: 720px) and (max-width: 1100px) {
     width: calc(140px + 40 * (100vw - 720px) / 380);
   }
-  @media (min-width:1100px) {
+  @media (min-width: 1100px) {
     width: 180px;
   }
   height: 50px;
@@ -162,7 +164,6 @@ export default {
   .article_moreInfo_hover();
   background: #3682de;
 }
-
 .article_moreInfo_2 {
   .article_moreInfo();
   border: 1px solid #a32e00;
@@ -171,14 +172,13 @@ export default {
   background: #a32e00;
   .article_moreInfo_hover();
 }
-
 .article_moreInfo_3 {
   border: 1px solid #006630;
   .article_moreInfo();
 }
 .article_moreInfo_3:hover {
   background: #006630;
- .article_moreInfo_hover();
+  .article_moreInfo_hover();
 }
 
 .image_cover {
@@ -207,6 +207,7 @@ export default {
   margin-bottom: 80px;
 }
 
+// 子目录的侧边栏标题
 .left_title {
   position: absolute;
   left: 10px;
@@ -216,5 +217,22 @@ export default {
   font-family: MessinaSans, sans-serif;
   font-weight: bolder;
   font: black;
+}
+
+// 动画
+
+.slide-in-bottom {
+  animation: slide 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 </style>
