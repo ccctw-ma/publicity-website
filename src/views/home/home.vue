@@ -1,35 +1,6 @@
 <template>
   <div>
-    <!-- 大标题 -->
-    <!-- <el-row class="module" style="background-color: #fafafa; margin-top: 10px">
-      <el-col :span="8" :offset="2">
-        <h1 class="bigTitle">融合定位云平台</h1>
-      </el-col>
-      <el-col :span="4" :offset="4">
-        <el-collapse
-          v-model="activeNames"
-          @change="handleChange"
-          style="margin-top: 70px"
-        >
-          <el-collapse-item title="反馈 Feedback" name="1">
-            <div>
-              控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；
-            </div>
-            <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-          </el-collapse-item>
-        </el-collapse>
-      </el-col>
-      <el-col :span="4">
-        <div style="margin-top: 80px">
-          <el-input
-            v-model="input"
-            placeholder="请输入内容"
-            suffix-icon="el-icon-search"
-          ></el-input>
-        </div>
-      </el-col>
-    </el-row> -->
-
+    <!-- 走马灯 -->
     <div class="CarouselContent">
       <el-carousel
         :interval="5000"
@@ -37,62 +8,46 @@
         arrow="hover"
         @change="handleCarouselChange"
       >
-        <el-carousel-item v-for="(item, index) in imgArr" :key="index">
-          <img :src="item" class="image" />
+        <el-carousel-item v-for="(item, index) in banner" :key="index">
+          <img :src="item.addr" class="image" />
           <div :class="{ image_info: index === carouselIndex }">
-            <h1 class="title">团队简介</h1>
+            <h1 class="title">{{ item.title }}</h1>
             <p class="description">
-              “普适位置感知计算团队”(UbiLoc)创建于2009年12月，
-              致力于室内导航定位、室内制图与建模及其与普适计算、物联网、物理信息融合系统（CPS）、
-              移动社交网络的交叉研究，团队依托学院在地图制图学与地理信息系统（GIS）、软件工程等学科领域的优势，
-              坚持走多学科交叉和产学研相结合的发展道路。
+              {{ item.message }}
             </p>
           </div>
         </el-carousel-item>
       </el-carousel>
     </div>
 
-    <!-- <img
-      src="https://desk-fd.zol-img.com.cn/t_s960x600c5/g2/M00/0D/0C/ChMlWl7WGpOIP-5kAAOR7AhEDyYAAPsKwEWpmYAA5IE726.jpg"
-      style="width: 100%; z-index: 100"
-    /> -->
     <!-- Recent Highlights -->
     <div class="module">
       <!-- left -->
       <div class="leftContent hidden-sm-and-down">
         <div class="leftWord">
-          <h2 style="color: #fff143">Recent Highlights</h2>
+          <h2 style="color: black">Recent Highlights</h2>
         </div>
       </div>
       <!-- right -->
       <div class="rightContent">
-        <el-row style="flex-wrap: wrap">
-          <el-col :md="12" :xs="24" v-for="item in 6" :key="item">
-            <el-row style="margin: 20px">
-              <el-col :sm="8" :xs="10">
+        <el-row style="flex-wrap: wrap; margin: 5vw 0px 3vw 0">
+          <el-col class="highlightContent" v-for="(item,index) in hightlights" :key="index">
+            <el-row class="highlight">
+              <el-col :span="10" class="image-content">
                 <img
-                  src="https://news.mit.edu/sites/default/files/styles/frontpage__featured_news/public/images/202105/amethyst.jpg?itok=xn0y4C07"
-                  style="width: 100%"
-                  class="slide-in-bottom"
+                  :src="item.img_url"
+                  class="image"
                 />
               </el-col>
-              <el-col :sm="16" :xs="14">
-                <h4
-                  style="
-                    margin: 5px;
-                    text-decoration: underline;
-                    text-decoration-color: red;
-                  "
+              <el-col :span="14" class="article">
+                <a href="#" class="title-link"
+                  ><p class="title">
+                   {{item.title}}
+                  </p></a
                 >
-                  Inhabiting 21st-century science fiction
-                </h4>
-                <p
-                  style="text-align: left; margin: 10px"
-                  class="hidden-xs-only"
-                >
-                  Students in 21L.434 discover that the world-making of science
-                  fiction is not only a way to envision possible futures, but a
-                  powerful way to think about the world we currently inhabit.
+
+                <p class="content">
+                 {{item.content}}
                 </p>
               </el-col>
             </el-row>
@@ -102,14 +57,12 @@
     </div>
 
     <!-- In the Media -->
-    <div class="module">
-      <!-- left -->
+    <!-- <div class="module">
       <div class="leftContent hidden-sm-and-down">
         <div class="leftWord">
           <h2 style="color: #fff143">In the Media</h2>
         </div>
       </div>
-      <!-- right -->
       <div class="rightContent">
         <el-row style="flex-wrap: wrap">
           <el-col
@@ -145,17 +98,15 @@
           </el-col>
         </el-row>
       </div>
-    </div>
+    </div> -->
 
     <!-- 学术海报 -->
-    <div class="module">
-      <!-- left -->
+    <!-- <div class="module">
       <div class="leftContent hidden-sm-and-down">
         <div class="leftWord" span="2">
           <h2 style="color: #fff143">学术海报</h2>
         </div>
       </div>
-      <!-- right -->
       <div class="rightContent">
         <el-row style="flex-wrap: wrap">
           <h2 style="color: #fff143">学术海报</h2>
@@ -182,106 +133,79 @@
           </el-col>
         </el-row>
       </div>
-    </div>
+    </div> -->
 
-    <!-- 关于我们 -->
+    <!-- Featured Videos -->
     <div class="module">
       <div class="leftContent hidden-sm-and-down">
-        <div class="leftWord" style="background-color: #fafafa">
-          <h2 style="color: #fa8c35">关于我们</h2>
+        <div class="leftWord">
+          <h2 style="color: black">Featured Videos</h2>
         </div>
       </div>
       <div class="rightContent">
-        <el-row style="flex-wrap: wrap">
-          <el-col :md="22" :offset="2" :xs="24">
-            <el-col>
-              <h1 style="float: left; font-size: 30px; font-weight: bolder">
-                友情链接
-              </h1>
-            </el-col>
-            <el-col :md="3" :xs="12">
-              <img
-                src="../../assets/2weima.png"
-                style="width: 100%; float: left"
-              />
-            </el-col>
-            <el-col :md="18" :offset="1" :xs="24">
-              <el-col :md="8" :xs="24">
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link">北京邮电大学</p></a
-                  >
+        <el-row style="flex-wrap: wrap; margin: 5vw 0px 3vw 0">
+          <el-col
+            :sm="8"
+            :xs="24"
+            v-for="(item, index) in videoInfo"
+            :key="index"
+          >
+            <el-card
+              :body-style="{ padding: '0px' }"
+              shadow="hover"
+              class="featureContent"
+            >
+              <el-row>
+                <el-col :sm="24" :xs="12" class="image-content">
+                  <img :src="item.addr" class="image" />
                 </el-col>
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link" style="padding-top: 10px">
-                      计算机学院（国家示范性软件学院）
-                    </p></a
-                  >
+                <el-col :sm="24" :xs="12" class="text-content">
+                  <p class="text">
+                    {{ item.message }}
+                  </p>
                 </el-col>
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link" style="padding-top: 10px">
-                      工业和信息化部
-                    </p></a
-                  >
-                </el-col>
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link" style="padding-top: 10px">科技部</p></a
-                  >
-                </el-col>
-              </el-col>
-              <el-col :md="8" :xs="24">
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link">中国卫星导航定位协会</p></a
-                  >
-                </el-col>
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link" style="padding-top: 10px">
-                      普适计算（教育部）重点实验室
-                    </p></a
-                  >
-                </el-col>
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link" style="padding-top: 10px">科学网</p></a
-                  >
-                </el-col>
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link" style="padding-top: 10px">IEEE</p></a
-                  >
-                </el-col>
-              </el-col>
-              <el-col :md="8" :xs="24">
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link">中科院计算所</p></a
-                  >
-                </el-col>
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link" style="padding-top: 10px">Xerox PARC</p></a
-                  >
-                </el-col>
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link" style="padding-top: 10px">IDC</p></a
-                  >
-                </el-col>
-                <el-col>
-                  <a href="https://www.bupt.edu.cn/"
-                    ><p class="link" style="padding-top: 10px">Gartner</p></a
-                  >
-                </el-col>
-              </el-col>
-            </el-col>
-            <el-col><br /></el-col>
-            <el-col><br /></el-col>
+              </el-row>
+            </el-card>
           </el-col>
+        </el-row>
+      </div>
+    </div>
+
+    <!-- 关于我们 -->
+    <div class="module" style="background-color: #f7f7f7">
+      <div class="leftContent hidden-sm-and-down">
+        <div class="leftWord">
+          <h2 style="color: black">About Us</h2>
+        </div>
+      </div>
+      <div class="rightContent">
+        <el-row style="flex-wrap: wrap;  margin: 5vw 0px 3vw 0">
+          <el-row :span="24">
+            <el-col :span="22" :offset="2">
+              <el-col>
+                <h1 style="float: left; font-size: 30px; font-weight: bolder;">
+                  友情链接
+                </h1>
+              </el-col>
+              <el-col :md="3" :xs="12" :sm="6">
+                <img
+                  src="../../assets/2weima.png"
+                  style="width: 100%; float: left"
+                />
+              </el-col>
+              <el-col :md="{span:18,offset:1}"  :xs="21" :sm="17" style="text-align:left">
+                <a class="link">北京邮电大学</a>
+                <a class="link">计算机学院(国家示范性软件学院)</a>
+                <a class="link">中科院计算所</a>
+                <a class="link">工业和信息化部</a>
+                <a class="link">科技部</a>
+                <a class="link">中国卫星导航定位协会</a>
+                <a class="link">普适计算（教育部）重点实验室</a>
+                <a class="link">科学网</a>
+                <a class="link">IDC</a>
+              </el-col>
+            </el-col>
+          </el-row>
         </el-row>
       </div>
     </div>
@@ -311,6 +235,66 @@ export default {
         "https://desk-fd.zol-img.com.cn/t_s720x360c5/g6/M00/0B/00/ChMkKmBamS-IdsvVABQVFnzWDOwAAL-UACX_LYAFBUu002.jpg",
         "https://desk-fd.zol-img.com.cn/t_s720x360c5/g6/M00/02/0E/ChMkKV_qldOIfXWYABMgkwLAFasAAHd_gH7hoQAEyCr686.jpg",
       ],
+      banner: [
+        {
+          title: "公检法司精确定位与监控",
+          message: "500+ 监狱/看守/戒毒/法院/办案中心选择精准位置服务",
+          addr: "http://www.tsingoal.com/upload/202104/1618310512.jpg",
+        },
+        {
+          title: "智慧城市综合位置物联网平台",
+          message: "服务于学校、医院、养老院、市政、展会的指挥管控平台",
+          addr: "http://www.tsingoal.com/upload/202011/1604746892.jpg",
+        },
+        {
+          title: "工业4.0精确位置感知",
+          message:
+            "无线脉冲专利技术0.1米精度，在1200+案例中无缝接入MES/WMS/ERP/PMS系统",
+          addr: "http://www.tsingoal.com/upload/202104/1618310239.jpg",
+        },
+      ],
+      hightlights: [
+        {
+          img_url:
+            "https://news.mit.edu/sites/default/files/styles/frontpage__featured_news/public/images/202106/Serotonin-being-and-serotonin-cooking.png?itok=793ni4dZ",
+          title: "Finding the love hormone in a stressed-out world",
+          content:
+            "A new art/science collaboration uses molecular structures as its creative medium.",
+        },
+        {
+          img_url:"https://news.mit.edu/sites/default/files/styles/frontpage__featured_news/public/images/202105/smart-e-scooters.jpg?itok=ErJLcUUb",
+          title:"E-scooters as a new micro-mobility service",
+          content:"SMART researchers explore the potential of e-scooter sharing as a replacement for short-distance transit in Singapore."
+        },
+        {
+          img_url:"https://news.mit.edu/sites/default/files/styles/frontpage__featured_news/public/images/202106/USSOCOM-MIT-Professional-Education-AI-Course_0.jpg?itok=kgEaaBwB",
+          title:"A unique collaboration with US Special Operations Command",
+          content:"Nearly 300 government and military members participated in a new course exploring artificial intelligence."
+        },
+        {
+          img_url:"https://news.mit.edu/sites/default/files/styles/frontpage__featured_news/public/images/202106/digital-humanities.png?itok=xpHdiUQW",
+          title:"Online hub for research and teaching brings digital humanities to the fore",
+          content:"Virtual collaboration sessions connect faculty and researchers to new tools, resources, and each other."
+        },
+   
+      ],
+      videoInfo: [
+        {
+          addr: "https://news.mit.edu/sites/default/files/images/202105/MIT-Spring-Campus-SL3.jpg",
+          message:
+            "For those who haven’t experienced the glorious sights of spring at MIT, we share this glimpse of our campus in full bloom. The blossoms and greenery are accompanied by flutist Sara Simpson, a PhD student in BCS.",
+        },
+        {
+          addr: "https://news.mit.edu/sites/default/files/images/202105/goldstein_screenshotSliceSocial1920x1080_opt1.jpg",
+          message:
+            "After 31 years engineering medical solutions for the National Institutes of Health (NIH), Seth Goldstein ’61, SM ’62, SM ’63, SCD ’66 launched a second career as a kinetic sculptor. Not only do they move, they all achieve a specific goal.",
+        },
+        {
+          addr: "https://news.mit.edu/sites/default/files/images/202105/MIT-Nurses-SL.jpg",
+          message:
+            "On National Nurses Day, MIT honors the 46 nurses who serve our community at MIT Medical. At times when people feel alone or vulnerable, “it is the nurse who can really make that connection, and make them feel comfortable,” Maureen Johnston says.",
+        },
+      ],
     };
   },
   computed: {},
@@ -327,7 +311,7 @@ export default {
     },
     handleCarouselChange(index, preIndex) {
       this.carouselIndex = index;
-      console.log(preIndex, index);
+      // console.log(preIndex, index);
     },
   },
   mounted() {
@@ -337,11 +321,41 @@ export default {
 </script>
 
 <style lang="less">
-.el-carousel__container {
-  position: relative;
-  height: 50vw;
+// 每个模块主体
+.module {
+  width: 100%;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.231);
+  z-index: 101;
+  display: flex;
+  .leftContent {
+    width: 84px;
+    /* 左侧标题 */
+    .leftWord {
+      display: inline-block;
+      position: relative;
+      top: 5vw;
+      left: 84px;
+      width: auto;
+      margin-top: 0;
+      height: 84px;
+      transform-origin: 0 0;
+      transform: rotate(90deg);
+      white-space: nowrap;
+      font-size: 20px;
+      z-index: 102;
+    }
+  }
+  .rightContent {
+    widows: 100%;
+  }
 }
 
+.el-carousel__container {
+  position: relative;
+  height: 100vw/3;
+}
+
+// 走马灯
 .CarouselContent {
   width: 100%;
   z-index: 200;
@@ -373,7 +387,7 @@ export default {
     .description {
       color: #ffffff;
       // 两端对齐
-      text-align: justify;
+      text-align: center;
       animation: 0.8s slide 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
       @media (min-width: 1024px) {
         font-size: 16px;
@@ -388,6 +402,129 @@ export default {
   }
 }
 
+// recent highlights
+.highlightContent {
+  width: 50%;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+  transition-duration: 0.3s;
+  .highlight {
+    margin: 0px 2vw 3vw;
+    @media (max-width: 769px) {
+      margin: 10px 0 0 10px;
+    }
+    float: left;
+    .image-content {
+      display: inline-block;
+      overflow: hidden;
+      .image {
+        width: 100%;
+        height: 100%;
+      }
+      .image:hover {
+        transform: scale(1.05);
+        transition-duration: 0.5s;
+      }
+    }
+    .article {
+      padding: 0 10px 0 10px;
+      display: inline-block;
+      vertical-align: top;
+      .title-link {
+        text-decoration: none;
+        color: #333;
+
+        .title {
+          font-weight: 700;
+          letter-spacing: -0.035em;
+          margin: 0;
+          padding: 2px 0 5px;
+          line-height: 1.15;
+          font-size: 24px;
+          text-align: left;
+          @media (max-width: 1600px) {
+            font-size: 20px;
+          }
+          @media (max-width: 1024px) {
+            font-size: 18px;
+          }
+        }
+      }
+      .title-link:hover {
+        text-decoration: underline red;
+      }
+
+      .content {
+        text-align: left;
+        overflow: hidden;
+        line-height: 1.3;
+        font-size: 18px;
+        margin: 0px 0px;
+        text-decoration: none;
+        @media (max-width: 1600px) {
+          font-size: 17px;
+        }
+        @media (max-width: 1100px) {
+          font-size: 15px;
+        }
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// Featured Videos
+.featureContent {
+  margin: 0px 2vw 3vw;
+  .image-content {
+    display: inline-block;
+    .image {
+      width: 100%;
+      height: 100%;
+    }
+    .image:hover {
+      transform: scale(1.05);
+      transition-duration: 0.5s;
+    }
+  }
+  .text-content {
+    display: inline-block;
+    .text {
+      line-height: 1.55em;
+      text-align: left;
+      font-size: 17px;
+      padding: 16px 10px;
+      @media (max-width: 1024px) {
+        font-size: 15px;
+        padding: 0px 10px;
+        margin: 0px;
+        vertical-align: top;
+        overflow: hidden;
+      }
+      @media (max-width: 600px) {
+        font-size: 12px;
+        padding: 0px 5px;
+        margin: 0px;
+        vertical-align: top;
+        overflow: hidden;
+        max-height: 25vw;
+      }
+    }
+  }
+}
+
+//  关于我们 
+.about{
+
+}
+
+.slide-in-bottom {
+  animation: slide 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+//滑动效果
 @keyframes slide {
   0% {
     transform: translateY(100px);
@@ -403,51 +540,6 @@ export default {
   min-height: 120px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.231);
   z-index: 100;
-}
-
-// 每个模块主体
-.module {
-  width: 100%;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.231);
-  z-index: 101;
-  display: flex;
-}
-
-.leftContent {
-  width: 84px;
-}
-.rightContent {
-  widows: 100%;
-}
-
-/* 左侧标题 */
-.leftWord {
-  display: inline-block;
-  position: relative;
-  top: 20px;
-  left: 84px;
-  width: auto;
-  margin-top: 0;
-  height: 84px;
-  transform-origin: 0 0;
-  transform: rotate(90deg);
-  white-space: nowrap;
-  font-size: 20px;
-  z-index: 102;
-}
-
-.slide-in-bottom {
-  animation: slide 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-.el-divider--vertical {
-  display: inline-block;
-  width: 2px;
-  height: 100%;
-  margin: 0 8px;
-  vertical-align: middle;
-  position: relative;
-  color: #fafafa;
 }
 
 .link {
