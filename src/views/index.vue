@@ -75,7 +75,7 @@
       </transition>
     </el-main>
     <!-- 脚注部分的内容 -->
-    <el-footer>Footer 这里放脚注</el-footer>
+    <el-footer>Footer 这里放脚注 </el-footer>
   </el-container>
 </template>
 
@@ -238,7 +238,6 @@ export default {
 .el-footer {
   color: #333;
   text-align: center;
-  line-height: 60px;
   width: 100%;
   padding: 0;
   margin: 0;

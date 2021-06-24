@@ -1,6 +1,9 @@
 /*解决跨域问题*/
 
 module.exports = {
+
+    publicPath:'./',
+    
     devServer: {
         open: true,
         host: 'localhost',

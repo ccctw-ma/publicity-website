@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <script>
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9e1f36b57cd0593a8683d87ad4569802";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  <!-- <script type="text/javascript" id="clstr_globe"
+    src="//clustrmaps.com/globe.js?d=yzAP-ttSJ0bIwX095h4oeFLR6d0PH5bqjXCEEo1YQMA"></script>
+  <script type="text/javascript" id="clustrmaps"
+    src="//clustrmaps.com/map_v2.js?d=yzAP-ttSJ0bIwX095h4oeFLR6d0PH5bqjXCEEo1YQMA&cl=ffffff&w=a"></script> -->
+    
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
+  </noscript>
+  <div id="app">
+  </div>
+  <!-- built files will be auto injected -->
+  <!-- <script type='text/javascript' id='clustrmaps' src='https://cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=500&t=tt&d=yzAP-ttSJ0bIwX095h4oeFLR6d0PH5bqjXCEEo1YQMA&co=2d78ad&ct=ffffff&cmo=3acc3a&cmn=ff5353'></script> -->
+
+</body>
+
 </html>
