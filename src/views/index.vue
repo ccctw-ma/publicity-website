@@ -17,7 +17,7 @@
                 style="width: 60px; height: 60px"
               />
             </div>
-            <div class="logo_title">北京邮电大学</div>
+            <div class="logo_title">移动智能及时空数据挖掘实验室</div>
           </div>
         </el-col>
         <el-col :lg="16" :md="16" :sm="12" :xs="6">
@@ -75,7 +75,20 @@
       </transition>
     </el-main>
     <!-- 脚注部分的内容 -->
-    <el-footer>Footer 这里放脚注 </el-footer>
+    <el-footer>
+      <div class="foot-content">
+        <p>
+          版权所有 ：北京邮电大学 移动计算与智能信息处理研究团队
+        </p>
+        <p>
+          通信地址：北京市海淀区西土城路10号
+          北京邮电大学 计算机学院(国家示范性软件学院)
+        </p>
+        <p>
+          邮编：100876 
+        </p>
+      </div>
+    </el-footer>
   </el-container>
 </template>
 
@@ -208,14 +221,14 @@ export default {
 
 .logo_title {
   display: inline-block;
-  width: 110px;
+  width: 115px;
   height: 60px;
   line-height: normal;
-  font-family: cursive;
+  // font-family: cursive;
   font-weight: bolder;
   margin-left: 5px;
-  margin-top: -10px;
-  vertical-align: middle;
+  margin-top: 8px;
+  vertical-align: top;
 }
 
 .el-menu.el-menu--horizontal {
@@ -237,12 +250,20 @@ export default {
 
 .el-footer {
   color: #333;
-  text-align: center;
   width: 100%;
-  padding: 0;
+  height: 100% !important;
   margin: 0;
-  /* position: fixed;
-  bottom: 1px; */
+  background-color: #f7f7f7;
+  .foot-content {
+    margin-left: 84px;
+    text-align: center;
+    @media (max-width:992px) {
+      margin-left: 0px;
+    }
+    p {
+      line-height: 1;
+    }
+  }
 }
 
 .el-main {
