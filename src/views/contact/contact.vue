@@ -1,202 +1,87 @@
 <template>
-  <div class="home">
-    <div class="header" id="header" :class="{ fixed: isFixed }">
-      <div class="fixed-width clearfix">
-        <div class="header-title fl">我是顶部</div>
-        <div class="header-buy fr">我也是顶部</div>
-      </div>
+  <div>
+    <!-- 侧边栏标题 -->
+    <div class="leftTitle hidden-sm-and-down">
+      <h1>{{ table }}</h1>
     </div>
-    <div class="content">
-      <div class="banner"></div>
-      <div class="animate-box slide">
-        <h2 class="animate text-h2" data-ani="fadeInUpBig">
-          LuckLin520 Written in Chengdu
-        </h2>
-        <p class="animate text-p" data-ani="rollIn" data-delay="1000">
-          Thank you for reading and I will continue to work hard!
-          —————2018/08/08
-        </p>
-      </div>
-      <div class="animate-box bounce">
-        <div class="animate yellow" data-ani="bounceInLeft"></div>
-        <div class="animate red" data-ani="bounceInRight"></div>
-        <div class="animate green" data-ani="bounceInLeft"></div>
-        <div class="animate blue" data-ani="bounceInRight"></div>
-      </div>
-      <div class="animate-box slide">
-        <h2 class="animate text-h2" data-ani="fadeInUpBig">
-          做真实的自己，一切都会好起来的
-        </h2>
-        <p class="animate text-p" data-ani="slideInRight" data-delay="1000">
-          Be true to yourself and everything will be fine
-        </p>
-      </div>
-      <div class="animate-box zoom">
-        <div class="animate one" data-ani="bounceInLeft"></div>
-        <div class="animate two" data-ani="bounceInRight"></div>
-        <div class="animate three" data-ani="bounceInLeft"></div>
-        <div class="animate four" data-ani="bounceInRight"></div>
-      </div>
-      <img src="https://desk-fd.zol-img.com.cn/t_s960x600c5/g2/M00/0D/0C/ChMlWl7WGpOIP-5kAAOR7AhEDyYAAPsKwEWpmYAA5IE726.jpg" style="width:100%;z-index:100">
-    </div>
+    <!-- 面包屑 -->
+    <el-row>
+      <el-col :sm="{ span: 18, offset: 3 }" :xs="{ span: 22, offset: 1 }">
+        <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
+          <el-breadcrumb-item>首页</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ submenu }}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </el-col>
+    </el-row>
+    <!-- 模块化开发 传入模块的参数分别为 item:显示信息 index:这是第几个模块 theme:使用哪个主题-->
+    <notice
+      v-for="(item, index) in listData"
+      :key="index"
+      :item="item"
+      :index="index"
+      :theme="3"
+    ></notice>
   </div>
 </template>
+
 <script>
+import { mapGetters } from "vuex";
+import notice from "@/components/notice.vue";
 export default {
+  name: "direction",
+  components: {
+    notice,
+  },
   data() {
     return {
-      isFixed: 0,
+      listData: [],
     };
   },
+  computed: {
+    ...mapGetters([
+      //当前进入子菜单
+      "table",
+      "submenu",
+    ]),
+  },
   methods: {
-    handleScroll() {
-      let top =
-        pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      if (top > 250) {
-        this.isFixed = 1;
-      } else if (top < 200) {
-        this.isFixed = 0;
-      }
-    },
-    handleAnimate() {
-      let top =
-        pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      let vh = document.documentElement.clientHeight;
-      let dom = document.querySelectorAll(".animate");
-      
-      [].slice.call(dom).forEach((v) => {
-        
-        if (top + vh > v.offsetTop) {
-          var delay = v.dataset.delay;
-          if (delay) {
-            setTimeout(() => {
-              v.style.opacity = 1;
-              v.classList.add(v.dataset.ani);
-            }, delay);
-          } else {
-            v.style.opacity = 1;
-            v.classList.add(v.dataset.ani);
-          }
-        } else {
-          v.classList.remove(v.dataset.ani);
-          v.style.opacity = 0;
-        }
+    //获取使用的信息
+    getAllData() {
+      let url = this.table + "/queryAll" + this.table + "Notice";
+      console.log(url);
+      this.$axios.get(url).then((res) => {
+        this.listData = res.data;
       });
     },
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.handleAnimate(); //初始化第一次加载时在视口内就执行动画
-      addEventListener("scroll", this.handleScroll);
-      addEventListener("scroll", this.handleAnimate);
-    });
-  },
-  destroyed() {
-    removeEventListener("scroll", this.handleScroll); //避免影响其他页面
-    removeEventListener("scroll", this.handleAnimate);
+  created() {
+    this.getAllData();
   },
 };
 </script>
- 
+
 <style scoped lang="less">
-.header {
-  background: green;
-  height: 50px;
-}
-.fixed {
-  position: fixed;
-  top: 0px;
-  z-index: 4;
-  width: 100%;
-  animation: slideInDown 0.5s;
-}
-.content {
-  height: 2000px;
-  overflow: hidden;
-  .banner {
-    width: 80%;
-    height: 400px;
-    background: orange;
-    margin: 80px auto;
-  }
-  .slide {
-    font-size: initial;
-    height: 100px;
-  }
-  .bounce {
-    width: 80%;
-    margin: 0 auto 80px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    & > div {
-      height: 120px;
-      float: left;
-      width: 45%;
-    }
-    .yellow {
-      background: yellow;
-      margin-bottom: 40px;
-    }
-    .red {
-      background: red;
-    }
-    .green {
-      background: green;
-    }
-    .blue {
-      background: blue;
-    }
-  }
-  .zoom {
-    width: 80%;
-    margin: 0 auto 80px;
-    display: flex;
-    justify-content: space-between;
-    & > div {
-      width: 23%;
-      height: 263px;
-    }
-    .one {
-      background: url(http://www.codingke.com/themes/codingnew-1/img/study/python/python_block1_img1.jpg)
-        no-repeat center/100%;
-    }
-    .two {
-      background: url(http://www.codingke.com/themes/codingnew-1/img/study/python/python_block1_img2.jpg)
-        no-repeat center/100%;
-    }
-    .three {
-      background: url(http://www.codingke.com/themes/codingnew-1/img/study/python/python_block1_img3.jpg)
-        no-repeat center/100%;
-    }
-    .four {
-      background: url(http://www.codingke.com/themes/codingnew-1/img/study/python/python_block1_img4.jpg)
-        no-repeat center/100%;
-    }
+.breadcrumb {
+  font-weight: bolder;
+  font-size: 15px;
+  margin-top: 80px;
+  margin-bottom: 50px;
+  @media (max-width: 768px) {
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 }
 
-//animate classs
-.animate {
-  opacity: 0;
-}
-.fadeInUpBig {
-  animation: fadeInUpBig 1s;
-}
-.rollIn {
-  animation: rollIn 1s;
-}
-.slideInRight {
-  animation: slideInRight 1s;
-}
-.bounceInLeft {
-  animation: bounceInLeft 2s ease-in;
-}
-.bounceInRight {
-  animation: bounceInRight 2s ease-in;
+.leftTitle {
+  position: absolute;
+  top: 140px;
+  left: 84px;
+  width: auto;
+  margin-top: 0;
+  height: 84px;
+  transform-origin: 0 0;
+  transform: rotate(90deg);
+  white-space: nowrap;
+  font-size: 20px;
 }
 </style>

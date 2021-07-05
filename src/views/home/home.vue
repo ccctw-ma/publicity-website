@@ -41,7 +41,7 @@
                 <img :src="item.mediaUrl" class="image" />
               </el-col>
               <el-col :span="14" class="article">
-                <a href="#" class="title-link"
+                <a  class="title-link"
                   ><p class="title">
                     {{ item.title }}
                   </p></a
@@ -153,7 +153,26 @@
           >
             <div class="featureContent">
               <el-row>
-                <el-col :sm="24" :xs="12" class="image-content">
+                <el-col
+                  :sm="24"
+                  :xs="12"
+                  class="image-content"
+                  v-if="item.mediaType === 'video'"
+                >
+                  <video
+                    :src="item.mediaUrl"
+                    muted
+                    autoplay
+                    loop
+                    class="image"
+                  ></video>
+                </el-col>
+                <el-col
+                  :sm="24"
+                  :xs="12"
+                  class="image-content"
+                  v-else-if="item.mediaType === 'image'"
+                >
                   <img :src="item.mediaUrl" class="image" />
                 </el-col>
                 <el-col :sm="24" :xs="12" class="text-content">
@@ -169,7 +188,7 @@
     </div>
 
     <!-- 关于我们 -->
-    <div class="module" style="background-color: #f7f7f7">
+    <div class="module">
       <div class="leftContent hidden-sm-and-down">
         <div class="leftWord">
           <h2 style="color: black">友情链接</h2>
@@ -506,9 +525,9 @@ export default {
           }
         }
       }
-      .title-link:hover {
-        text-decoration: underline red;
-      }
+      // .title-link:hover {
+      //   text-decoration: underline red;
+      // }
 
       .content {
         text-align: left;
