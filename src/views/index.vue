@@ -237,7 +237,7 @@ export default {
 }
 
 .el-menu--horizontal > .el-menu-item {
-  font-family: MessinaSans, sans-serif;
+  // font-family: MessinaSans, sans-serif;
   font-size: 16px;
   font-weight: 600;
   // margin-top: 5px;

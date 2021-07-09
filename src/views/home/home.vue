@@ -19,7 +19,6 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-
     <!-- Recent Highlights -->
     <div class="module">
       <!-- left -->
@@ -30,8 +29,11 @@
       </div>
       <!-- right -->
       <div class="rightContent">
-        <el-row style="flex-wrap: wrap; margin: 5vw 0px 3vw 0">
-          <el-col
+        <el-row
+          style="flex-wrap: wrap; margin: 5vw 0px 3vw 0"
+          justify="space-around"
+        >
+          <div
             class="highlightContent"
             v-for="(item, index) in hightlights"
             :key="index"
@@ -41,7 +43,7 @@
                 <img :src="item.mediaUrl" class="image" />
               </el-col>
               <el-col :span="14" class="article">
-                <a  class="title-link"
+                <a class="title-link"
                   ><p class="title">
                     {{ item.title }}
                   </p></a
@@ -52,90 +54,10 @@
                 </p>
               </el-col>
             </el-row>
-          </el-col>
+          </div>
         </el-row>
       </div>
     </div>
-
-    <!-- In the Media -->
-    <!-- <div class="module">
-      <div class="leftContent hidden-sm-and-down">
-        <div class="leftWord">
-          <h2 style="color: #fff143">In the Media</h2>
-        </div>
-      </div>
-      <div class="rightContent">
-        <el-row style="flex-wrap: wrap">
-          <el-col
-            :md="8"
-            :sm="12"
-            :xs="24"
-            v-for="i in 3"
-            :key="i"
-            style="padding: 20px"
-          >
-            <el-card :body-style="{ padding: '0px' }" shadow="hover">
-              <h4>Good Day LA</h4>
-              <p style="text-align: left; margin: 5px">
-                Prof. Christopher Capozzola speaks with Bob DeCastro of Good Day
-                LA about the campaign to name a U.S. Navy Warship after Fireman
-                2nd Class Telesforo Trinidad, the only American national of
-                Asian and Filipino descent to have received a Congressional
-                Medal of Honor.
-              </p>
-              <i class="el-icon-video-play"></i>
-              <span
-                style="
-                  margin: 5px;
-                  text-decoration: underline;
-                  text-decoration-color: red;
-                "
-                @click="goToDetail"
-              >
-                learn more
-              </span>
-              <i class="el-icon-right"></i>
-            </el-card>
-          </el-col>
-        </el-row>
-      </div>
-    </div> -->
-
-    <!-- 学术海报 -->
-    <!-- <div class="module">
-      <div class="leftContent hidden-sm-and-down">
-        <div class="leftWord" span="2">
-          <h2 style="color: #fff143">学术海报</h2>
-        </div>
-      </div>
-      <div class="rightContent">
-        <el-row style="flex-wrap: wrap">
-          <h2 style="color: #fff143">学术海报</h2>
-          <el-col
-            :md="8"
-            :xs="24"
-            v-for="item in 3"
-            :key="item"
-            style="padding: 20px"
-            class="poster"
-          >
-            <el-card :body-style="{ padding: '0px' }">
-              <img
-                src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
-                class="image"
-              />
-              <div style="padding: 10px">
-                <span>简要信息</span>
-                <div class="bottom clearfix">
-                  <el-button type="text" class="button">点击查看详情</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-      </div>
-    </div> -->
-
     <!-- Featured Videos -->
     <div class="module">
       <div class="leftContent hidden-sm-and-down">
@@ -186,7 +108,6 @@
         </el-row>
       </div>
     </div>
-
     <!-- 关于我们 -->
     <div class="module">
       <div class="leftContent hidden-sm-and-down">
@@ -245,14 +166,6 @@
         </el-row>
       </div>
     </div>
-
-    <!-- <div class="module
-    ">
-      <div class="leftContent hidden-sm-and-down">left</div>
-      <div class="rightContent">
-        <el-row style="flex-wrap: wrap"> right </el-row>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -350,7 +263,6 @@ export default {
           },
         })
         .then((res) => {
-          console.log("轮播图信息", res);
           this.banner = res.data;
         });
     },
@@ -362,7 +274,6 @@ export default {
           },
         })
         .then((res) => {
-          console.log("highlight", res);
           this.hightlights = res.data;
         });
     },
@@ -374,7 +285,6 @@ export default {
           },
         })
         .then((res) => {
-          console.log("feature", res);
           this.videoInfo = res.data;
         });
     },
@@ -398,6 +308,7 @@ export default {
   border-bottom: 1px solid rgba(128, 128, 128, 0.231);
   z-index: 101;
   display: flex;
+
   .leftContent {
     width: 84px;
     /* 左侧标题 */
@@ -418,6 +329,7 @@ export default {
   }
   .rightContent {
     widows: 100%;
+    font-size: 0;
   }
 }
 
@@ -479,12 +391,15 @@ export default {
 // recent highlights
 .highlightContent {
   width: 50%;
+  display: inline-block;
+  vertical-align: top;
   @media (max-width: 600px) {
     width: 100%;
   }
   transition-duration: 0.3s;
   .highlight {
     margin: 0px 2vw 3vw;
+    box-sizing: border-box;
     @media (max-width: 769px) {
       margin: 10px 0 0 10px;
     }
@@ -492,6 +407,7 @@ export default {
     .image-content {
       display: inline-block;
       overflow: hidden;
+      max-width: 500px;
       .image {
         width: 100%;
         height: 100%;
@@ -525,9 +441,6 @@ export default {
           }
         }
       }
-      // .title-link:hover {
-      //   text-decoration: underline red;
-      // }
 
       .content {
         text-align: left;
@@ -535,7 +448,7 @@ export default {
         line-height: 1.3;
         font-size: 18px;
         margin: 0px 0px;
-        text-decoration: none;
+        // text-decoration: none;
         @media (max-width: 1600px) {
           font-size: 17px;
         }
@@ -612,7 +525,7 @@ export default {
 }
 
 .link {
-  font-family: Arial, Helvetica, sans-serif;
+  // font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   color: black;
   float: left;
